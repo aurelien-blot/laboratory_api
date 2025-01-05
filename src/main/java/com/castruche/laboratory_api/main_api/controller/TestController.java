@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping()
-    public String connexionTest() {
-        return "Test OK";
+    public boolean connexionTest() {
+        return true;
     }
 
 
