@@ -6,14 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class SettingService {
 
     private static final Logger logger = LogManager.getLogger(SettingService.class);
-    private SettingRepository settingRepository;
+    private final SettingRepository settingRepository;
 
     public SettingService(SettingRepository settingRepository) {
         this.settingRepository = settingRepository;
@@ -39,9 +36,11 @@ public class SettingService {
         return getSettingValueByShortName("mailjet_api_secret");
     }
 
-
     public String getMailjetApiSenderMail() {
         return getSettingValueByShortName("mailjet_api_sender_mail");
+    }
+    public String getStableDiffusionApiUrl() {
+        return getSettingValueByShortName("stable_diffusion_api_url");
     }
 
 

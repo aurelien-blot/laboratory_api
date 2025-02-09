@@ -5,8 +5,6 @@ import com.castruche.laboratory_api.quick_mail_api.service.MailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-
 @RestController
 @RequestMapping(ConstantUrlQuickMail.ROOT)
 public class QuickMailController {
