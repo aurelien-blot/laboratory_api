@@ -1,6 +1,6 @@
 package com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.response;
 
-import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.GenerationParameterDto;
+import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.parameter.GenerationParameterDto;
 import com.castruche.laboratory_api.fake_profile_api.service.util.CustomGenerationInfoResponseDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

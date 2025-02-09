@@ -14,10 +14,21 @@ public class WebClientService {
     }
 
     public WebClient initWebClient(String url, Integer maxInMemorySize) {
-        return WebClient.builder()
+        return initWebClient(url, maxInMemorySize, false, false);
+    }
+
+    public WebClient initWebClient(String url, Integer maxInMemorySize, boolean logRequest, boolean logResponse) {
+        WebClient.Builder builder = WebClient.builder()
                 .codecs(configurer -> configurer.defaultCodecs()
                         .maxInMemorySize((maxInMemorySize!=null?5:16) * 1024 * 1024))
-                .baseUrl(url).build();
+                .baseUrl(url);
+        if (logRequest) {
+            builder.filter(WebClientLogger.logRequest());
+        }
+        if (logResponse) {
+            builder.filter(WebClientLogger.logResponse());
+        }
+        return builder.build();
     }
 
 

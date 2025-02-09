@@ -1,11 +1,11 @@
-package com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion;
+package com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.parameter;
 
 public class GenerationParameterDto {
     private String prompt;
     private String negativePrompt;
     private String[] styles;
-    private int seed;
-    private int subseed;
+    private Long seed;
+    private Long subseed;
     private int subseedStrength;
     private int seedResizeFromH;
     private int seedResizeFromW;
@@ -22,13 +22,13 @@ public class GenerationParameterDto {
     private boolean doNotSaveSamples;
     private boolean doNotSaveGrid;
     private int eta;
-    private int denoisingStrength;
+    private Double denoisingStrength;
     private int sMinUncond;
     private int sChurn;
     private int sTmax;
     private int sTmin;
     private int sNoise;
-    private Object overrideSettings;
+    private GenerationOverrideSettingParameterDto overrideSettings;
     private boolean overrideSettingsRestoreAfterwards;
     private String refinerCheckpoint;
     private int refinerSwitchAt;
@@ -81,19 +81,19 @@ public class GenerationParameterDto {
         this.styles = styles;
     }
 
-    public int getSeed() {
+    public Long getSeed() {
         return seed;
     }
 
-    public void setSeed(int seed) {
+    public void setSeed(Long seed) {
         this.seed = seed;
     }
 
-    public int getSubseed() {
+    public Long getSubseed() {
         return subseed;
     }
 
-    public void setSubseed(int subseed) {
+    public void setSubseed(Long subseed) {
         this.subseed = subseed;
     }
 
@@ -225,11 +225,11 @@ public class GenerationParameterDto {
         this.eta = eta;
     }
 
-    public int getDenoisingStrength() {
+    public Double getDenoisingStrength() {
         return denoisingStrength;
     }
 
-    public void setDenoisingStrength(int denoisingStrength) {
+    public void setDenoisingStrength(Double denoisingStrength) {
         this.denoisingStrength = denoisingStrength;
     }
 
@@ -273,11 +273,11 @@ public class GenerationParameterDto {
         this.sNoise = sNoise;
     }
 
-    public Object getOverrideSettings() {
+    public GenerationOverrideSettingParameterDto getOverrideSettings() {
         return overrideSettings;
     }
 
-    public void setOverrideSettings(Object overrideSettings) {
+    public void setOverrideSettings(GenerationOverrideSettingParameterDto overrideSettings) {
         this.overrideSettings = overrideSettings;
     }
 

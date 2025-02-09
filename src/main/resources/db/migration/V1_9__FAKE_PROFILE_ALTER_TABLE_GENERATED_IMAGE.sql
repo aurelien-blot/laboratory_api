@@ -1,0 +1,1 @@
+ALTER TABLE generated_image MODIFY COLUMN denoising_strength DOUBLE;

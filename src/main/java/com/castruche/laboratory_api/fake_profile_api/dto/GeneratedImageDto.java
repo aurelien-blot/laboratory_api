@@ -17,7 +17,7 @@ public class GeneratedImageDto extends AbstractDto {
     private int width;
     private int height;
 
-    private int denoisingStrength;
+    private Double denoisingStrength;
 
     private String refinerCheckpoint;
     private int refinerSwitchAt;
@@ -54,6 +54,13 @@ public class GeneratedImageDto extends AbstractDto {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getFileName() {
+        if(filePath == null){
+            return null;
+        }
+        return filePath.substring(filePath.lastIndexOf('\\') + 1);
     }
 
     public String getPrompt() {
@@ -96,11 +103,11 @@ public class GeneratedImageDto extends AbstractDto {
         this.height = height;
     }
 
-    public int getDenoisingStrength() {
+    public Double getDenoisingStrength() {
         return denoisingStrength;
     }
 
-    public void setDenoisingStrength(int denoisingStrength) {
+    public void setDenoisingStrength(Double denoisingStrength) {
         this.denoisingStrength = denoisingStrength;
     }
 

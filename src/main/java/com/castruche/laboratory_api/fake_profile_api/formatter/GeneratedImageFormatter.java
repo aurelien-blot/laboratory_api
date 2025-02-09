@@ -36,7 +36,7 @@ public class GeneratedImageFormatter implements IFormatter<GeneratedImage, Gener
 
     @Override
     public GeneratedImageDto entityToLightDto(GeneratedImage generatedImage) {
-        return null;
+        return this.entityToDto(generatedImage);
     }
 
     @Override

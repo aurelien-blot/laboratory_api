@@ -3,6 +3,7 @@ package com.castruche.laboratory_api.fake_profile_api.controller;
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.request.GenerationRequestParameterDto;
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.response.GenerationResponseDto;
 import com.castruche.laboratory_api.fake_profile_api.service.StableDiffusionService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class StableDiffusionController {
     }
 
     @PostMapping()
-    public GenerationResponseDto generatePicture(@RequestBody GenerationRequestParameterDto request) {
+    public ResponseEntity<String> generatePicture(@RequestBody GenerationRequestParameterDto request) {
         return this.stableDiffusionService.generate(request);
     }
 

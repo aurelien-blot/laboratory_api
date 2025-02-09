@@ -37,7 +37,7 @@ public class GeneratedImage extends AbstractEntity {
     private boolean doNotSaveSamples;
     private boolean doNotSaveGrid;
     private int eta;
-    private int denoisingStrength;
+    private Double denoisingStrength;
     private int sMinUncond;
     private int sChurn;
     private int sTmax;
@@ -261,11 +261,11 @@ public class GeneratedImage extends AbstractEntity {
         this.eta = eta;
     }
 
-    public int getDenoisingStrength() {
+    public Double getDenoisingStrength() {
         return denoisingStrength;
     }
 
-    public void setDenoisingStrength(int denoisingStrength) {
+    public void setDenoisingStrength(Double denoisingStrength) {
         this.denoisingStrength = denoisingStrength;
     }
 

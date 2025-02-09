@@ -10,9 +10,12 @@ import com.castruche.laboratory_api.map_gen_api.dao.MapRepository;
 import com.castruche.laboratory_api.map_gen_api.dto.map.MapDto;
 import com.castruche.laboratory_api.map_gen_api.entity.map.Map;
 import com.castruche.laboratory_api.map_gen_api.formatter.map.MapFormatter;
+import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GeneratedImageService extends GenericService<GeneratedImage, GeneratedImageDto, GeneratedImageDto> {
@@ -28,6 +31,7 @@ public class GeneratedImageService extends GenericService<GeneratedImage, Genera
     }
 
 
+    @Transactional
     public GeneratedImageDto createFromApi(GenerationResponseDto response, String filePath, String templateTitle) {
         if(response == null){
             throw new RuntimeException("Réponse de Stable Diffusion vide ou invalide");
@@ -105,5 +109,15 @@ public class GeneratedImageService extends GenericService<GeneratedImage, Genera
 
         generatedImage = this.generatedImageRepository.save(generatedImage);
         return this.generatedImageFormatter.entityToDto(generatedImage);
+    }
+
+    public List<GeneratedImageDto> selectAll(String templateTitle){
+        List<GeneratedImage> generatedImages;
+        if(templateTitle == null){
+            generatedImages = this.generatedImageRepository.findAll();
+        }else{
+            generatedImages = this.generatedImageRepository.findByTemplateTitle(templateTitle);
+        }
+        return this.generatedImageFormatter.entityToLightDto(generatedImages);
     }
 }
