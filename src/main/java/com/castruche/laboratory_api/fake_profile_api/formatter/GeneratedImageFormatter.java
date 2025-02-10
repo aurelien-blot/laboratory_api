@@ -17,6 +17,8 @@ public class GeneratedImageFormatter implements IFormatter<GeneratedImage, Gener
         }
         GeneratedImageDto generatedImageDto = new GeneratedImageDto();
         generatedImageDto.setId(entity.getId());
+        generatedImageDto.setCreationTime(entity.getCreationTime());
+        generatedImageDto.setModificationTime(entity.getModificationTime());
         generatedImageDto.setTemplateTitle(entity.getTemplateTitle());
         generatedImageDto.setSeedUsed(entity.getSeedUsed());
         generatedImageDto.setSubseedUsed(entity.getSubseedUsed());

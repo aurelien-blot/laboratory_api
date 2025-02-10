@@ -76,33 +76,7 @@ public class StableDiffusionService {
 
     private GenerationRequestParameterDto initSettings() {
         GenerationRequestParameterDto request = new GenerationRequestParameterDto();
-
-        /*{
-            "prompt": "legs, single person, full body shot, one person only, a young woman, 20 years old, blonde hair, green eyes, casual outfit, smiling, photorealistic, cinematic lighting, realistic skin, natural skin texture, subtle skin pores, soft lighting, photorealistic",
-                "negative_prompt": "3D render, CGI, smooth skin, artificial, waxy, doll-like, plastic, multiple people, group photo, portrait",
-                "seed": 932980778,
-                "subseed": 4223433572,
-                "subseed_strength": 0,
-                "width": 632,
-                "height": 960,
-                "sampler_name": "DPM++ 2M",
-                "cfg_scale": 1,
-                "steps": 56,
-                "batch_size": 1,
-                "restore_faces": false,
-                "face_restoration_model": null,
-                "sd_model_checkpoint": "realisticVisionV60B1_v51HyperVAE.safetensors",
-                "override_settings": {
-            "sd_model_checkpoint": "realisticVisionV60B1_v51HyperVAE.safetensors"
-        },
-            "denoising_strength": 0.7,
-                "extra_generation_params": {
-            "Schedule type": "Karras"
-        },
-            "clip_skip": 1,
-                "version": "v1.10.1"
-        }*/
-
+        
 
         request.setTotal(1);
         request.setTemplateTitle("TestGirl");
