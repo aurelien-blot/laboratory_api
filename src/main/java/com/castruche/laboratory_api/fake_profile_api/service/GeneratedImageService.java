@@ -2,6 +2,7 @@ package com.castruche.laboratory_api.fake_profile_api.service;
 
 import com.castruche.laboratory_api.fake_profile_api.dao.GeneratedImageRepository;
 import com.castruche.laboratory_api.fake_profile_api.dto.GeneratedImageDto;
+import com.castruche.laboratory_api.fake_profile_api.dto.PicturePreviewDto;
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.response.GenerationResponseDto;
 import com.castruche.laboratory_api.fake_profile_api.entity.GeneratedImage;
 import com.castruche.laboratory_api.fake_profile_api.formatter.GeneratedImageFormatter;
@@ -15,6 +16,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -119,5 +124,28 @@ public class GeneratedImageService extends GenericService<GeneratedImage, Genera
             generatedImages = this.generatedImageRepository.findByTemplateTitle(templateTitle);
         }
         return this.generatedImageFormatter.entityToLightDto(generatedImages);
+    }
+
+    public PicturePreviewDto loadPicture(Long id){
+        if(null==id){
+            throw new RuntimeException("Id de l'image non fourni");
+        }
+        GeneratedImage generatedImage = this.generatedImageRepository.findById(id).orElseThrow(() -> new RuntimeException("Image non trouvée"));
+
+        String imagePath = generatedImage.getFilePath();
+
+        File imageFile = new File(imagePath);
+        byte[] imageBytes;
+        try {
+            imageBytes = Files.readAllBytes(imageFile.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException("Erreur lors de la lecture de l'image", e);
+        }
+        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+        PicturePreviewDto imageDto = new PicturePreviewDto();
+        imageDto.setBase64Image(base64Image);
+
+        return imageDto;
     }
 }

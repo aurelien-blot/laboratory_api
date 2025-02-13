@@ -35,26 +35,23 @@ public class StableDiffusionService {
     }
 
     @Transactional
-    public ResponseEntity<String> generate(GenerationRequestParameterDto request) {
-        request = initSettings();
+    public ResponseEntity<String> generate(GenerationRequestParameterDto request, String templateTitle) {
+        request.setTemplateTitle(templateTitle);
         String url = this.settingService.getStableDiffusionApiUrl();
         WebClient webClient = webClientService.initWebClient(url, 16);
         try {
             //logRequestObject(request);
 
-            for (int i = 0; i < request.getTotal(); i++) {
-                // Envoi de la requête de manière asynchrone et attente du résultat
-                GenerationResponseDto responseDto = webClient.post()
-                        .uri("/sdapi/v1/txt2img")
-                        .bodyValue(request)
-                        .retrieve()
-                        .bodyToMono(GenerationResponseDto.class)
-                        .block();
-                if (responseDto != null && responseDto.getImages() != null && responseDto.getImages().length > 0) {
-                    saveImage(responseDto, request.getTemplateTitle());
-                } else {
-                    throw new RuntimeException("Réponse de Stable Diffusion vide ou invalide.");
-                }
+            GenerationResponseDto responseDto = webClient.post()
+                    .uri("/sdapi/v1/txt2img")
+                    .bodyValue(request)
+                    .retrieve()
+                    .bodyToMono(GenerationResponseDto.class)
+                    .block();
+            if (responseDto != null && responseDto.getImages() != null && responseDto.getImages().length > 0) {
+                saveImage(responseDto, request.getTemplateTitle());
+            } else {
+                throw new RuntimeException("Réponse de Stable Diffusion vide ou invalide.");
             }
             return ResponseEntity.ok().build();
         } catch (DataBufferLimitException e) {
@@ -74,41 +71,6 @@ public class StableDiffusionService {
         }
     }
 
-    private GenerationRequestParameterDto initSettings() {
-        GenerationRequestParameterDto request = new GenerationRequestParameterDto();
-        
-
-        request.setTotal(1);
-        request.setTemplateTitle("TestGirl");
-
-        request.setPrompt("legs,single person,full body shot, one person only, a young woman, 20 years old, blonde hair, green eyes, casual outfit, smiling, photorealistic, cinematic lighting, realistic skin, natural skin texture, subtle skin pores, soft lighting, photorealistic");
-        request.setNegativePrompt("3D render, CGI, smooth skin, artificial, waxy, doll-like, plastic, multiple people,  group photo, portrait");
-        request.setSeed(932980778L);
-        request.setSubseed(4223433572L);
-        request.setSubseedStrength(0);
-        request.setWidth(632);
-        request.setHeight(960);
-        request.setSamplerName("DPM++ 2M");
-        request.setCfgScale(1);
-        request.setSteps(56);
-        request.setBatchSize(1);
-        request.setRestoreFaces(false);
-        request.setFaceRestorationModel(null);
-        request.setSdModelCheckpoint("realisticVisionV60B1_v51HyperVAE.safetensors");
-        GenerationOverrideSettingParameterDto overrideSetting = new GenerationOverrideSettingParameterDto();
-        overrideSetting.setSdModelCheckpoint("realisticVisionV60B1_v51HyperVAE.safetensors");
-        request.setOverrideSettings(overrideSetting);
-        request.setDenoisingStrength(0.7);
-        GenerationExtraParameterDto extraParameter = new GenerationExtraParameterDto();
-        extraParameter.setSchedulerType("Karras");
-        request.setExtraGenerationParams(extraParameter);
-
-        //request.setRefinerCheckpoint("v1-5-pruned-emaonly.safetensors [6ce0161689]");
-        //request.setRefinerSwitchAt(1);
-
-
-        return request;
-    }
 
     private void saveImage(GenerationResponseDto response, String templateTitle) {
         try {

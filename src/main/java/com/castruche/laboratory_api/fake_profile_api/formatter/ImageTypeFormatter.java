@@ -1,7 +1,10 @@
 package com.castruche.laboratory_api.fake_profile_api.formatter;
 
+import com.castruche.laboratory_api.fake_profile_api.dao.ImageTypeRepository;
+import com.castruche.laboratory_api.fake_profile_api.dao.ModelRepository;
 import com.castruche.laboratory_api.fake_profile_api.dto.ImageTypeDto;
 import com.castruche.laboratory_api.fake_profile_api.entity.ImageType;
+import com.castruche.laboratory_api.fake_profile_api.entity.Model;
 import com.castruche.laboratory_api.main_api.formatter.IFormatter;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,11 @@ import java.util.List;
 @Service
 public class ImageTypeFormatter implements IFormatter<ImageType, ImageTypeDto, ImageTypeDto> {
 
+    private final ImageTypeRepository imageTypeRepository;
+
+    public ImageTypeFormatter(ImageTypeRepository imageTypeRepository) {
+        this.imageTypeRepository = imageTypeRepository;
+    }
     @Override
     public ImageTypeDto entityToDto(ImageType entity) {
         if(entity == null){
@@ -43,8 +51,38 @@ public class ImageTypeFormatter implements IFormatter<ImageType, ImageTypeDto, I
 
     @Override
     public ImageType dtoToEntity(ImageTypeDto dto) {
-        ImageType imageType = new ImageType();
-        imageType.setId(dto.getId());
+        ImageType imageType ;
+        if(null!=dto.getId()){
+            imageType = imageTypeRepository.findById(dto.getId()).orElse(null);
+        }
+        else{
+            imageType = new ImageType();
+        }
+        assert imageType != null;
+        imageType.setDescription(dto.getDescription());
+        imageType.setName(dto.getName());
+        if(null==dto.getSeed()){
+            imageType.setSeed(-1L);
+        }
+        else{
+            imageType.setSeed(dto.getSeed());
+        }
+        imageType.setSubseed(dto.getSubseed());
+        imageType.setWidth(dto.getWidth());
+        imageType.setHeight(dto.getHeight());
+        imageType.setSamplerName(dto.getSamplerName());
+        imageType.setCfgScale(dto.getCfgScale());
+        imageType.setSteps(dto.getSteps());
+        if(null!=dto.getRestoreFaces()){
+            imageType.setRestoreFaces(dto.getRestoreFaces());
+        }
+        else{
+            imageType.setRestoreFaces(false);
+        }
+        imageType.setFaceRestorationModel(dto.getFaceRestorationModel());
+        imageType.setSdModelCheckpoint(dto.getSdModelCheckpoint());
+        imageType.setDenoisingStrength(dto.getDenoisingStrength());
+
         return imageType;
     }
 

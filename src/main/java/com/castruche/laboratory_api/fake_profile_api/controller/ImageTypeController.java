@@ -1,11 +1,9 @@
 package com.castruche.laboratory_api.fake_profile_api.controller;
 
 import com.castruche.laboratory_api.fake_profile_api.dto.ImageTypeDto;
+import com.castruche.laboratory_api.fake_profile_api.dto.ModelDto;
 import com.castruche.laboratory_api.fake_profile_api.service.ImageTypeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +23,20 @@ public class ImageTypeController {
         return this.imageTypeService.getAllDto();
     }
 
+
+    @PostMapping()
+    public ImageTypeDto create(@RequestBody ImageTypeDto imageTypeDto) {
+        return this.imageTypeService.create(imageTypeDto);
+    }
+
+    @PutMapping()
+    public ImageTypeDto update(@RequestBody ImageTypeDto imageTypeDto) {
+        return this.imageTypeService.update(imageTypeDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        this.imageTypeService.delete(id);
+    }
 
 }

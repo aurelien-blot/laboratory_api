@@ -1,6 +1,7 @@
 package com.castruche.laboratory_api.fake_profile_api.controller;
 
 import com.castruche.laboratory_api.fake_profile_api.dto.GeneratedImageDto;
+import com.castruche.laboratory_api.fake_profile_api.dto.PicturePreviewDto;
 import com.castruche.laboratory_api.fake_profile_api.service.GeneratedImageService;
 import com.castruche.laboratory_api.map_gen_api.controller.ConstantUrlMap;
 import com.castruche.laboratory_api.map_gen_api.dto.map.MapDto;
@@ -24,6 +25,11 @@ public class GeneratedImageController {
     @GetMapping()
     public List<GeneratedImageDto> selectAll(@RequestParam(required = false) String templateTitle) {
         return this.generatedImageService.selectAll(templateTitle);
+    }
+
+    @GetMapping("/load/{id}")
+    public PicturePreviewDto selectAll(@PathVariable Long id) {
+        return this.generatedImageService.loadPicture(id);
     }
 
 

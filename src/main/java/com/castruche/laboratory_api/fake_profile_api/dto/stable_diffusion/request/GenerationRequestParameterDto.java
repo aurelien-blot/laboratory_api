@@ -11,9 +11,6 @@ public class GenerationRequestParameterDto {
     @JsonIgnore
     private String templateTitle;
 
-    @JsonIgnore
-    private Integer total;
-
     private String prompt;
 
     @JsonProperty("negative_prompt")
@@ -27,6 +24,8 @@ public class GenerationRequestParameterDto {
     @JsonProperty("sampler_name")
     private String samplerName;
 
+    @JsonProperty("batch_count")
+    private int batchCount;
     @JsonProperty("batch_size")
     private int batchSize;
     private int steps;
@@ -63,14 +62,6 @@ public class GenerationRequestParameterDto {
 
     public void setTemplateTitle(String templateTitle) {
         this.templateTitle = templateTitle;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
     }
 
     public String getFaceRestorationModel() {
@@ -143,6 +134,14 @@ public class GenerationRequestParameterDto {
 
     public void setSamplerName(String samplerName) {
         this.samplerName = samplerName;
+    }
+
+    public int getBatchCount() {
+        return batchCount;
+    }
+
+    public void setBatchCount(int batchCount) {
+        this.batchCount = batchCount;
     }
 
     public int getBatchSize() {
