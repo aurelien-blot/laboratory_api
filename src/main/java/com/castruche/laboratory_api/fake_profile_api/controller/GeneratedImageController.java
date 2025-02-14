@@ -32,5 +32,10 @@ public class GeneratedImageController {
         return this.generatedImageService.loadPicture(id);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        this.generatedImageService.completeDelete(id);
+    }
+
 
 }
