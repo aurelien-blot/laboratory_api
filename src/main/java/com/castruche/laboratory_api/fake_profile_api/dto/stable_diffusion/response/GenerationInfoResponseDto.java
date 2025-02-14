@@ -20,25 +20,25 @@ public class GenerationInfoResponseDto {
         false, "version":"v1.10.1"
     }*/
 
-    @JsonProperty("seed")
-    private Long seed;
+    @JsonProperty("all_seeds")
+    private Long[] allSeeds;
 
-    @JsonProperty("subseed")
-    private Long subseed;
+    @JsonProperty("all_subseeds")
+    private Long[] allSubseeds;
 
-    public Long getSeed() {
-        return seed;
+    public Long[] getAllSeeds() {
+        return allSeeds;
     }
 
-    public void setSeed(Long seed) {
-        this.seed = seed;
+    public void setAllSeeds(Long[] allSeeds) {
+        this.allSeeds = allSeeds;
     }
 
-    public Long getSubseed() {
-        return subseed;
+    public Long[] getAllSubseeds() {
+        return allSubseeds;
     }
 
-    public void setSubseed(Long subseed) {
-        this.subseed = subseed;
+    public void setAllSubseeds(Long[] allSubseeds) {
+        this.allSubseeds = allSubseeds;
     }
 }

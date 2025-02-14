@@ -35,24 +35,27 @@ public class StableDiffusionService {
     }
 
     @Transactional
-    public ResponseEntity<String> generate(GenerationRequestParameterDto request, String templateTitle) {
+    public ResponseEntity<String> generateTxtToImages(GenerationRequestParameterDto request, String templateTitle) {
         request.setTemplateTitle(templateTitle);
         String url = this.settingService.getStableDiffusionApiUrl();
         WebClient webClient = webClientService.initWebClient(url, 16);
         try {
             //logRequestObject(request);
 
-            GenerationResponseDto responseDto = webClient.post()
-                    .uri("/sdapi/v1/txt2img")
-                    .bodyValue(request)
-                    .retrieve()
-                    .bodyToMono(GenerationResponseDto.class)
-                    .block();
-            if (responseDto != null && responseDto.getImages() != null && responseDto.getImages().length > 0) {
-                saveImage(responseDto, request.getTemplateTitle());
-            } else {
-                throw new RuntimeException("Réponse de Stable Diffusion vide ou invalide.");
+            for(int i=0; i<request.getBatchCount();i++){
+                GenerationResponseDto responseDto = webClient.post()
+                        .uri("/sdapi/v1/txt2img")
+                        .bodyValue(request)
+                        .retrieve()
+                        .bodyToMono(GenerationResponseDto.class)
+                        .block();
+                if (responseDto != null && responseDto.getImages() != null && responseDto.getImages().length > 0) {
+                    saveImageList(responseDto, request.getTemplateTitle());
+                } else {
+                    throw new RuntimeException("Réponse de Stable Diffusion vide ou invalide.");
+                }
             }
+
             return ResponseEntity.ok().build();
         } catch (DataBufferLimitException e) {
             return ResponseEntity.internalServerError().body("Fichier trop volumineux (16mo max) : " + e.getMessage());
@@ -61,7 +64,7 @@ public class StableDiffusionService {
         }
     }
 
-    private void logRequestObject(GenerationRequestParameterDto request){
+    private void logRequestObject(GenerationRequestParameterDto request) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String jsonRequest = objectMapper.writeValueAsString(request);
@@ -72,16 +75,24 @@ public class StableDiffusionService {
     }
 
 
-    private void saveImage(GenerationResponseDto response, String templateTitle) {
+    private void saveImageList(GenerationResponseDto response, String templateTitle) {
+
+        for (int i = 0; i < response.getImages().length; i++) {
+            String filePath = manageFolder(templateTitle);
+            String image = response.getImages()[i];
+            saveImage(response, filePath, templateTitle, image, i);
+        }
+    }
+
+    private void saveImage(GenerationResponseDto response, String filePath, String templateTitle, String image, int index) {
         try {
 
-            String filePath = manageFolder(templateTitle);
-            byte[] imageBytes = Base64.getDecoder().decode(response.getImages()[0]);
+            byte[] imageBytes = Base64.getDecoder().decode(image);
 
             try (FileOutputStream fos = new FileOutputStream(filePath)) {
                 fos.write(imageBytes);
             }
-            this.generatedImageService.createFromApi(response, filePath, templateTitle);
+            this.generatedImageService.createFromApi(response, filePath, templateTitle, index);
         } catch (IOException e) {
             throw new RuntimeException("Erreur lors de l'enregistrement de l'image : " + e.getMessage(), e);
         }

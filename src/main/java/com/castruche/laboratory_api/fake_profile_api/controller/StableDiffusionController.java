@@ -21,7 +21,7 @@ public class StableDiffusionController {
 
     @PostMapping()
     public ResponseEntity<String> generatePicture(@RequestBody GenerationRequestParameterDto request, @RequestParam(required = false) String templateTitle) {
-        return this.stableDiffusionService.generate(request, templateTitle);
+        return this.stableDiffusionService.generateTxtToImages(request, templateTitle);
     }
 
 }

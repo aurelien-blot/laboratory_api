@@ -4,8 +4,6 @@ public class GenerationParameterDto {
     private String prompt;
     private String negativePrompt;
     private String[] styles;
-    private Long seed;
-    private Long subseed;
     private int subseedStrength;
     private int seedResizeFromH;
     private int seedResizeFromW;
@@ -79,22 +77,6 @@ public class GenerationParameterDto {
 
     public void setStyles(String[] styles) {
         this.styles = styles;
-    }
-
-    public Long getSeed() {
-        return seed;
-    }
-
-    public void setSeed(Long seed) {
-        this.seed = seed;
-    }
-
-    public Long getSubseed() {
-        return subseed;
-    }
-
-    public void setSubseed(Long subseed) {
-        this.subseed = subseed;
     }
 
     public int getSubseedStrength() {

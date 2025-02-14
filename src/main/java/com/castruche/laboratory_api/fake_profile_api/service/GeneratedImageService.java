@@ -29,6 +29,7 @@ public class GeneratedImageService extends GenericService<GeneratedImage, Genera
 
     private final GeneratedImageRepository generatedImageRepository;
     private final GeneratedImageFormatter generatedImageFormatter;
+
     public GeneratedImageService(GeneratedImageRepository generatedImageRepository, GeneratedImageFormatter generatedImageFormatter) {
         super(generatedImageRepository, generatedImageFormatter);
         this.generatedImageRepository = generatedImageRepository;
@@ -37,97 +38,103 @@ public class GeneratedImageService extends GenericService<GeneratedImage, Genera
 
 
     @Transactional
-    public GeneratedImageDto createFromApi(GenerationResponseDto response, String filePath, String templateTitle) {
-        if(response == null){
+    public GeneratedImageDto createFromApi(GenerationResponseDto response, String filePath, String templateTitle, int index) {
+        if (response == null) {
             throw new RuntimeException("Réponse de Stable Diffusion vide ou invalide");
         }
-        if(filePath == null){
+        if (filePath == null) {
             throw new RuntimeException("Chemin du fichier vide ou invalide");
         }
 
-        GeneratedImage generatedImage = new GeneratedImage();
-        generatedImage.setFilePath(filePath);
-        generatedImage.setTemplateTitle(templateTitle);
-        if(null!=response.getInfo()){
-            generatedImage.setSeedUsed(response.getInfo().getSeed());
-            generatedImage.setSubseedUsed(response.getInfo().getSubseed());
-        }
-        if(null!=response.getParameters()){
+        GeneratedImage generatedImage;
+        try {
+            generatedImage = new GeneratedImage();
 
-            generatedImage.setPrompt(response.getParameters().getPrompt());
-            generatedImage.setNegativePrompt(response.getParameters().getNegativePrompt());
-            if(null!=response.getParameters().getStyles()){
-
-                generatedImage.setStyles(response.getParameters().getStyles().toString());
+            generatedImage.setFilePath(filePath);
+            generatedImage.setTemplateTitle(templateTitle);
+            if (null != response.getInfo()) {
+                generatedImage.setSeedUsed(response.getInfo().getAllSeeds()[index]);
+                generatedImage.setSubseedUsed(response.getInfo().getAllSubseeds()[index]);
             }
-            generatedImage.setSubseedStrength(response.getParameters().getSubseedStrength());
-            generatedImage.setSeedResizeFromH(response.getParameters().getSeedResizeFromH());
-            generatedImage.setSeedResizeFromW(response.getParameters().getSeedResizeFromW());
-            generatedImage.setSamplerName(response.getParameters().getSamplerName());
-            generatedImage.setScheduler(response.getParameters().getScheduler());
-            generatedImage.setBatchSize(response.getParameters().getBatchSize());
-            generatedImage.setnIter(response.getParameters().getnIter());
-            generatedImage.setSteps(response.getParameters().getSteps());
-            generatedImage.setCfgScale(response.getParameters().getCfgScale());
-            generatedImage.setWidth(response.getParameters().getWidth());
-            generatedImage.setHeight(response.getParameters().getHeight());
-            generatedImage.setRestoreFaces(response.getParameters().isRestoreFaces());
-            generatedImage.setTiling(response.getParameters().isTiling());
-            generatedImage.setDoNotSaveSamples(response.getParameters().isDoNotSaveSamples());
-            generatedImage.setDoNotSaveGrid(response.getParameters().isDoNotSaveGrid());
-            generatedImage.setEta(response.getParameters().getEta());
-            generatedImage.setDenoisingStrength(response.getParameters().getDenoisingStrength());
-            generatedImage.setsMinUncond(response.getParameters().getsMinUncond());
-            generatedImage.setsChurn(response.getParameters().getsChurn());
-            generatedImage.setsTmax(response.getParameters().getsTmax());
-            generatedImage.setsTmin(response.getParameters().getsTmin());
-            generatedImage.setsNoise(response.getParameters().getsNoise());
-            generatedImage.setOverrideSettingsRestoreAfterwards(response.getParameters().isOverrideSettingsRestoreAfterwards());
-            generatedImage.setRefinerCheckpoint(response.getParameters().getRefinerCheckpoint());
-            generatedImage.setRefinerSwitchAt(response.getParameters().getRefinerSwitchAt());
-            generatedImage.setDisableExtraNetworks(response.getParameters().isDisableExtraNetworks());
-            generatedImage.setFirstpassImage(response.getParameters().getFirstpassImage());
-            generatedImage.setEnableHr(response.getParameters().isEnableHr());
-            generatedImage.setFirstphaseWidth(response.getParameters().getFirstphaseWidth());
-            generatedImage.setFirstphaseHeight(response.getParameters().getFirstphaseHeight());
-            generatedImage.setHrScale(response.getParameters().getHrScale());
-            generatedImage.setHrUpscaler(response.getParameters().getHrUpscaler());
-            generatedImage.setHrSecondPassSteps(response.getParameters().getHrSecondPassSteps());
-            generatedImage.setHrResizeX(response.getParameters().getHrResizeX());
-            generatedImage.setHrResizeY(response.getParameters().getHrResizeY());
-            generatedImage.setHrCheckpointName(response.getParameters().getHrCheckpointName());
-            generatedImage.setHrSamplerName(response.getParameters().getHrSamplerName());
-            generatedImage.setHrScheduler(response.getParameters().getHrScheduler());
-            generatedImage.setHrPrompt(response.getParameters().getHrPrompt());
-            generatedImage.setHrNegativePrompt(response.getParameters().getHrNegativePrompt());
-            generatedImage.setForceTaskId(response.getParameters().getForceTaskId());
-            generatedImage.setSamplerIndex(response.getParameters().getSamplerIndex());
-            generatedImage.setScriptName(response.getParameters().getScriptName());
-            if(null!=response.getParameters().getScriptArgs()){
-                generatedImage.setScriptArgs(response.getParameters().getScriptArgs().toString());
-            }
-            generatedImage.setSendImages(response.getParameters().isSendImages());
-            generatedImage.setSaveImages(response.getParameters().isSaveImages());
-            generatedImage.setInfotext(response.getParameters().getInfotext());
+            if (null != response.getParameters()) {
 
+                generatedImage.setPrompt(response.getParameters().getPrompt());
+                generatedImage.setNegativePrompt(response.getParameters().getNegativePrompt());
+                if (null != response.getParameters().getStyles()) {
+
+                    generatedImage.setStyles(response.getParameters().getStyles().toString());
+                }
+                generatedImage.setSubseedStrength(response.getParameters().getSubseedStrength());
+                generatedImage.setSeedResizeFromH(response.getParameters().getSeedResizeFromH());
+                generatedImage.setSeedResizeFromW(response.getParameters().getSeedResizeFromW());
+                generatedImage.setSamplerName(response.getParameters().getSamplerName());
+                generatedImage.setScheduler(response.getParameters().getScheduler());
+                generatedImage.setBatchSize(response.getParameters().getBatchSize());
+                generatedImage.setnIter(response.getParameters().getnIter());
+                generatedImage.setSteps(response.getParameters().getSteps());
+                generatedImage.setCfgScale(response.getParameters().getCfgScale());
+                generatedImage.setWidth(response.getParameters().getWidth());
+                generatedImage.setHeight(response.getParameters().getHeight());
+                generatedImage.setRestoreFaces(response.getParameters().isRestoreFaces());
+                generatedImage.setTiling(response.getParameters().isTiling());
+                generatedImage.setDoNotSaveSamples(response.getParameters().isDoNotSaveSamples());
+                generatedImage.setDoNotSaveGrid(response.getParameters().isDoNotSaveGrid());
+                generatedImage.setEta(response.getParameters().getEta());
+                generatedImage.setDenoisingStrength(response.getParameters().getDenoisingStrength());
+                generatedImage.setsMinUncond(response.getParameters().getsMinUncond());
+                generatedImage.setsChurn(response.getParameters().getsChurn());
+                generatedImage.setsTmax(response.getParameters().getsTmax());
+                generatedImage.setsTmin(response.getParameters().getsTmin());
+                generatedImage.setsNoise(response.getParameters().getsNoise());
+                generatedImage.setOverrideSettingsRestoreAfterwards(response.getParameters().isOverrideSettingsRestoreAfterwards());
+                generatedImage.setRefinerCheckpoint(response.getParameters().getRefinerCheckpoint());
+                generatedImage.setRefinerSwitchAt(response.getParameters().getRefinerSwitchAt());
+                generatedImage.setDisableExtraNetworks(response.getParameters().isDisableExtraNetworks());
+                generatedImage.setFirstpassImage(response.getParameters().getFirstpassImage());
+                generatedImage.setEnableHr(response.getParameters().isEnableHr());
+                generatedImage.setFirstphaseWidth(response.getParameters().getFirstphaseWidth());
+                generatedImage.setFirstphaseHeight(response.getParameters().getFirstphaseHeight());
+                generatedImage.setHrScale(response.getParameters().getHrScale());
+                generatedImage.setHrUpscaler(response.getParameters().getHrUpscaler());
+                generatedImage.setHrSecondPassSteps(response.getParameters().getHrSecondPassSteps());
+                generatedImage.setHrResizeX(response.getParameters().getHrResizeX());
+                generatedImage.setHrResizeY(response.getParameters().getHrResizeY());
+                generatedImage.setHrCheckpointName(response.getParameters().getHrCheckpointName());
+                generatedImage.setHrSamplerName(response.getParameters().getHrSamplerName());
+                generatedImage.setHrScheduler(response.getParameters().getHrScheduler());
+                generatedImage.setHrPrompt(response.getParameters().getHrPrompt());
+                generatedImage.setHrNegativePrompt(response.getParameters().getHrNegativePrompt());
+                generatedImage.setForceTaskId(response.getParameters().getForceTaskId());
+                generatedImage.setSamplerIndex(response.getParameters().getSamplerIndex());
+                generatedImage.setScriptName(response.getParameters().getScriptName());
+                if (null != response.getParameters().getScriptArgs()) {
+                    generatedImage.setScriptArgs(response.getParameters().getScriptArgs().toString());
+                }
+                generatedImage.setSendImages(response.getParameters().isSendImages());
+                generatedImage.setSaveImages(response.getParameters().isSaveImages());
+                generatedImage.setInfotext(response.getParameters().getInfotext());
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la création de l'image générée", e);
         }
 
         generatedImage = this.generatedImageRepository.save(generatedImage);
         return this.generatedImageFormatter.entityToDto(generatedImage);
     }
 
-    public List<GeneratedImageDto> selectAll(String templateTitle){
+    public List<GeneratedImageDto> selectAll(String templateTitle) {
         List<GeneratedImage> generatedImages;
-        if(templateTitle == null){
+        if (templateTitle == null) {
             generatedImages = this.generatedImageRepository.findAll();
-        }else{
+        } else {
             generatedImages = this.generatedImageRepository.findByTemplateTitle(templateTitle);
         }
         return this.generatedImageFormatter.entityToLightDto(generatedImages);
     }
 
-    public PicturePreviewDto loadPicture(Long id){
-        if(null==id){
+    public PicturePreviewDto loadPicture(Long id) {
+        if (null == id) {
             throw new RuntimeException("Id de l'image non fourni");
         }
         GeneratedImage generatedImage = this.generatedImageRepository.findById(id).orElseThrow(() -> new RuntimeException("Image non trouvée"));
@@ -147,5 +154,22 @@ public class GeneratedImageService extends GenericService<GeneratedImage, Genera
         imageDto.setBase64Image(base64Image);
 
         return imageDto;
+    }
+
+    @Transactional
+    public void completeDelete(Long id) {
+        if (null == id) {
+            throw new RuntimeException("Id de l'image non fourni");
+        }
+        GeneratedImage generatedImage = this.generatedImageRepository.findById(id).orElseThrow(() -> new RuntimeException("Image non trouvée"));
+
+        String imagePath = generatedImage.getFilePath();
+
+        File imageFile = new File(imagePath);
+        if (!imageFile.delete()) {
+            throw new RuntimeException("Erreur lors de la suppression de l'image");
+        }
+
+        this.generatedImageRepository.delete(generatedImage);
     }
 }

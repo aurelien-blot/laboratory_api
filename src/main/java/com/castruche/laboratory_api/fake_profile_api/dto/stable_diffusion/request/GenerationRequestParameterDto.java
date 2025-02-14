@@ -2,7 +2,6 @@ package com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.reque
 
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.parameter.GenerationExtraParameterDto;
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.parameter.GenerationOverrideSettingParameterDto;
-import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.parameter.GenerationParameterDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
