@@ -1,20 +1,18 @@
-# Stage 1: Build the application
-FROM maven:3.9.6-eclipse-temurin-11 AS builder
+# Stage 1: Build (Java 21)
+FROM maven:3.9.9-eclipse-temurin-21 AS builder
 WORKDIR /app
 
-# Copier pom.xml et télécharger les dépendances
 COPY pom.xml .
-RUN mvn dependency:go-offline
+RUN mvn -q -B dependency:go-offline
 
-# Copier le code source et compiler
 COPY src src
-RUN mvn clean package -DskipTests
+RUN mvn -q -B clean package -DskipTests
 
-# Stage 2: Run on Tomcat (même JDK que le build)
-FROM tomcat:9.0.96-jdk11-temurin
+# Stage 2: Run (Tomcat 10 + JDK21)
+FROM tomcat:10.1-jdk21-temurin
 WORKDIR /usr/local/tomcat
 
-# Nettoyer webapps par défaut
+# Nettoyer les apps par défaut
 RUN rm -rf webapps/*
 
 # Copier le WAR généré
