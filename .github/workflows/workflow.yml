@@ -75,7 +75,7 @@ jobs:
           DOMAIN_API: api-castruche.duckdns.org
           FRONT_ORIGIN: https://labo-castruche.duckdns.org
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} bash -s <<'EOF'
+          ssh -4 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<'EOF'
           set -euo pipefail
           echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
           docker pull ghcr.io/$GHCR_USER/laboratory-api:latest
