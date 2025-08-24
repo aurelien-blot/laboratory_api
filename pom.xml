@@ -11,7 +11,7 @@
     <groupId>com.castruche</groupId>
     <artifactId>laboratory_api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>laboratory_api</name>
     <description>laboratory_api</description>
     <url/>
@@ -101,11 +101,6 @@
             <groupId>com.mailjet</groupId>
             <artifactId>mailjet-client</artifactId>
             <version>4.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>
