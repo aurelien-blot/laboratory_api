@@ -3,9 +3,6 @@ name: CI/CD - API Labo
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'laboratory_api/**'
-      - '.github/workflows/workflow.yml'
   workflow_dispatch:
 
 permissions:
