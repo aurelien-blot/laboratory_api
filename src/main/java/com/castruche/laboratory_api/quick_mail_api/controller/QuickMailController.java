@@ -1,7 +1,7 @@
 package com.castruche.laboratory_api.quick_mail_api.controller;
 
 import com.castruche.laboratory_api.quick_mail_api.dto.MailDto;
-import com.castruche.laboratory_api.quick_mail_api.service.MailService;
+import com.castruche.laboratory_api.quick_mail_api.service.QMMailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 public class QuickMailController {
 
 
-    private final MailService mailService;
+    private final QMMailService mailService;
 
-    public QuickMailController(MailService mailService) {
+    public QuickMailController(QMMailService mailService) {
         this.mailService = mailService;
     }
 

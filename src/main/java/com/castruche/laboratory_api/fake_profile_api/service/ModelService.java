@@ -14,12 +14,8 @@ public class ModelService extends GenericService<Model, ModelDto, ModelDto> {
 
     private static final Logger logger = LogManager.getLogger(ModelService.class);
 
-    private final ModelRepository modelRepository;
-    private final ModelFormatter modelFormatter;
     public ModelService(ModelRepository modelRepository, ModelFormatter modelFormatter) {
         super(modelRepository, modelFormatter);
-        this.modelRepository = modelRepository;
-        this.modelFormatter = modelFormatter;
     }
 
 }

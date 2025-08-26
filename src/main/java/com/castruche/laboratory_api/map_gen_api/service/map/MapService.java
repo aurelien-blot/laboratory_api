@@ -14,12 +14,8 @@ public class MapService extends GenericService<Map, MapDto, MapDto> {
 
     private static final Logger logger = LogManager.getLogger(MapService.class);
 
-    private final MapRepository mapRepository;
-    private final MapFormatter mapFormatter;
     public MapService(MapRepository mapRepository, MapFormatter mapFormatter) {
         super(mapRepository, mapFormatter);
-        this.mapRepository = mapRepository;
-        this.mapFormatter = mapFormatter;
     }
     
 }

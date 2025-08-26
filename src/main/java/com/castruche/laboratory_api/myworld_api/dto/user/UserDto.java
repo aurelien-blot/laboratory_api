@@ -1,4 +1,4 @@
-package com.castruche.laboratory_api.main_api.dto.user;
+package com.castruche.laboratory_api.myworld_api.dto.user;
 
 import com.castruche.laboratory_api.main_api.dto.AbstractDto;
 

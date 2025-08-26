@@ -1,7 +1,6 @@
 package com.castruche.laboratory_api.fake_profile_api.controller;
 
 import com.castruche.laboratory_api.fake_profile_api.dto.ImageTypeDto;
-import com.castruche.laboratory_api.fake_profile_api.dto.ModelDto;
 import com.castruche.laboratory_api.fake_profile_api.service.ImageTypeService;
 import org.springframework.web.bind.annotation.*;
 

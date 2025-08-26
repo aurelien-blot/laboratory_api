@@ -1,10 +1,8 @@
 package com.castruche.laboratory_api.fake_profile_api.formatter;
 
 import com.castruche.laboratory_api.fake_profile_api.dao.ImageTypeRepository;
-import com.castruche.laboratory_api.fake_profile_api.dao.ModelRepository;
 import com.castruche.laboratory_api.fake_profile_api.dto.ImageTypeDto;
 import com.castruche.laboratory_api.fake_profile_api.entity.ImageType;
-import com.castruche.laboratory_api.fake_profile_api.entity.Model;
 import com.castruche.laboratory_api.main_api.formatter.IFormatter;
 import org.springframework.stereotype.Service;
 

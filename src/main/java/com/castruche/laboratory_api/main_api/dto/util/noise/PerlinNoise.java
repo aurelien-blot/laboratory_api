@@ -4,12 +4,11 @@ import java.util.Random;
 
 public class PerlinNoise {
 
-    private final int[] permutation;
     private final int[] p; // Duplicated permutation array
 
     // Constructeur avec une graine
     public PerlinNoise(long seed) {
-        permutation = new int[256];
+        int[] permutation = new int[256];
         p = new int[512];
         Random random = new Random(seed);
 
@@ -47,9 +46,8 @@ public class PerlinNoise {
         bb = p[p[X + 1] + Y + 1];
 
         // Interpoler les résultats
-        double result = lerp(v, lerp(u, grad(aa, x, y), grad(ba, x - 1, y)),
+        return lerp(v, lerp(u, grad(aa, x, y), grad(ba, x - 1, y)),
                 lerp(u, grad(ab, x, y - 1), grad(bb, x - 1, y - 1)));
-        return result;
     }
 
     // Courbe de fade (lissage des valeurs)

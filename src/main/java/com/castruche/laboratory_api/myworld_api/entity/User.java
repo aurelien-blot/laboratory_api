@@ -1,4 +1,4 @@
-package com.castruche.laboratory_api.main_api.entity;
+package com.castruche.laboratory_api.myworld_api.entity;
 
 import jakarta.persistence.Entity;
 
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-public class User extends AbstractEntity{
+public class User extends AbstractEntity {
 
     private String username;
     private String password;

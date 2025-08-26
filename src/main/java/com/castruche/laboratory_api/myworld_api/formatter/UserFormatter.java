@@ -1,14 +1,15 @@
-package com.castruche.laboratory_api.main_api.formatter;
+package com.castruche.laboratory_api.myworld_api.formatter;
 
-import com.castruche.laboratory_api.main_api.dto.user.UserDto;
 import com.castruche.laboratory_api.main_api.dto.util.ConnectedUserDto;
-import com.castruche.laboratory_api.main_api.entity.User;
+import com.castruche.laboratory_api.main_api.formatter.IFormatter;
+import com.castruche.laboratory_api.myworld_api.dto.user.UserDto;
+import com.castruche.laboratory_api.myworld_api.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserFormatter implements IFormatter<User, UserDto, UserDto>{
+public class UserFormatter implements IFormatter<User, UserDto, UserDto> {
 
     @Override
     public UserDto entityToDto(User entity) {
@@ -42,12 +43,12 @@ public class UserFormatter implements IFormatter<User, UserDto, UserDto>{
     }
 
     @Override
-    public List entityToLightDto(List list) {
+    public List<UserDto> entityToLightDto(List<User> list) {
         return IFormatter.super.entityToLightDto(list);
     }
 
     @Override
-    public List<UserDto> entityToDto(List list) {
+    public List<UserDto> entityToDto(List<User> list) {
         return IFormatter.super.entityToDto(list);
     }
 

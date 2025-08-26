@@ -1,7 +1,5 @@
 package com.castruche.laboratory_api.fake_profile_api.service;
 
-import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.parameter.GenerationExtraParameterDto;
-import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.parameter.GenerationOverrideSettingParameterDto;
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.request.GenerationRequestParameterDto;
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.response.GenerationResponseDto;
 import com.castruche.laboratory_api.main_api.service.util.SettingService;
@@ -40,7 +38,6 @@ public class StableDiffusionService {
         String url = this.settingService.getStableDiffusionApiUrl();
         WebClient webClient = webClientService.initWebClient(url, 16);
         try {
-            //logRequestObject(request);
 
             for(int i=0; i<request.getBatchCount();i++){
                 GenerationResponseDto responseDto = webClient.post()
@@ -61,16 +58,6 @@ public class StableDiffusionService {
             return ResponseEntity.internalServerError().body("Fichier trop volumineux (16mo max) : " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Erreur lors de la génération d'image : " + e.getMessage());
-        }
-    }
-
-    private void logRequestObject(GenerationRequestParameterDto request) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String jsonRequest = objectMapper.writeValueAsString(request);
-            System.out.println("Requête envoyée : " + jsonRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

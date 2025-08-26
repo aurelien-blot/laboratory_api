@@ -7,10 +7,6 @@ import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.respon
 import com.castruche.laboratory_api.fake_profile_api.entity.GeneratedImage;
 import com.castruche.laboratory_api.fake_profile_api.formatter.GeneratedImageFormatter;
 import com.castruche.laboratory_api.main_api.service.GenericService;
-import com.castruche.laboratory_api.map_gen_api.dao.MapRepository;
-import com.castruche.laboratory_api.map_gen_api.dto.map.MapDto;
-import com.castruche.laboratory_api.map_gen_api.entity.map.Map;
-import com.castruche.laboratory_api.map_gen_api.formatter.map.MapFormatter;
 import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -62,7 +59,7 @@ public class GeneratedImageService extends GenericService<GeneratedImage, Genera
                 generatedImage.setNegativePrompt(response.getParameters().getNegativePrompt());
                 if (null != response.getParameters().getStyles()) {
 
-                    generatedImage.setStyles(response.getParameters().getStyles().toString());
+                    generatedImage.setStyles(Arrays.toString(response.getParameters().getStyles()));
                 }
                 generatedImage.setSubseedStrength(response.getParameters().getSubseedStrength());
                 generatedImage.setSeedResizeFromH(response.getParameters().getSeedResizeFromH());
@@ -108,7 +105,7 @@ public class GeneratedImageService extends GenericService<GeneratedImage, Genera
                 generatedImage.setSamplerIndex(response.getParameters().getSamplerIndex());
                 generatedImage.setScriptName(response.getParameters().getScriptName());
                 if (null != response.getParameters().getScriptArgs()) {
-                    generatedImage.setScriptArgs(response.getParameters().getScriptArgs().toString());
+                    generatedImage.setScriptArgs(Arrays.toString(response.getParameters().getScriptArgs()));
                 }
                 generatedImage.setSendImages(response.getParameters().isSendImages());
                 generatedImage.setSaveImages(response.getParameters().isSaveImages());

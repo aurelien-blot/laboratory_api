@@ -28,6 +28,17 @@ public class SettingService {
         return null;
     }
 
+    public Integer getTentativesBeforeBlocking() {
+        String result =  getSettingValueByShortName("tentatives_before_blocking");
+        try {
+            return Integer.parseInt(result);
+        } catch (NumberFormatException e) {
+            logger.error("Error while parsing tentatives_before_blocking setting", e);
+        }
+        return null;
+    }
+
+    //region MAILJET
     public String getMailjetApiKey() {
         return getSettingValueByShortName("mailjet_api_key");
     }
@@ -39,9 +50,19 @@ public class SettingService {
     public String getMailjetApiSenderMail() {
         return getSettingValueByShortName("mailjet_api_sender_mail");
     }
+
+
+    public String getMailJetNoReplyEmail() {
+        return getSettingValueByShortName("mail_noreply_email");
+    }
+
+    public String getMailJetNoReplyName() {
+        return getSettingValueByShortName("mail_noreply_name");
+    }
+
+    //endregion
+
     public String getStableDiffusionApiUrl() {
         return getSettingValueByShortName("stable_diffusion_api_url");
     }
-
-
 }

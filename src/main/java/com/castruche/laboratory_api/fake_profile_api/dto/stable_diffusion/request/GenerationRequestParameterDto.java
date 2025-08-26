@@ -42,8 +42,6 @@ public class GenerationRequestParameterDto {
 
     @JsonProperty("override_settings")
     private GenerationOverrideSettingParameterDto overrideSettings;
-  /*  private String refinerCheckpoint;
-    private int refinerSwitchAt;*/
 
     @JsonProperty("face_restoration_model")
     private String faceRestorationModel;

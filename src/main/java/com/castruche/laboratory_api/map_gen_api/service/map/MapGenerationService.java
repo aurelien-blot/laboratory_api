@@ -43,9 +43,8 @@ public class MapGenerationService  {
         HashMap<Long, BiomeDto> biomeMap = biomeList.stream().collect(HashMap::new, (m, b) -> m.put(b.getId(), b), HashMap::putAll);
 
         //BiomeDto [][] map =randomBiomeGeneration(settingsRequestDto, biomeMap);
-        BiomeDto [][] map =perlinBiomeGeneration(settingsRequestDto, biomeMap);
 
-        return map;
+        return perlinBiomeGeneration(settingsRequestDto, biomeMap);
     }
 
     private void checkBiomeListValidity(List<SettingsBiomeRequestDto> settingsBiomeList) {

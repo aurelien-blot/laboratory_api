@@ -1,7 +1,7 @@
 package com.castruche.laboratory_api.main_api.dto.util;
 
 
-import com.google.gson.JsonObject;
+import org.json.JSONObject;
 
 public class MailObjectDto {
 
@@ -10,7 +10,7 @@ public class MailObjectDto {
     String receiverEmail;
     String receiverName;
     Integer templateId;
-    JsonObject variables;
+    JSONObject variables;
 
     public String getSenderEmail() {
         return senderEmail;
@@ -52,11 +52,11 @@ public class MailObjectDto {
         this.templateId = templateId;
     }
 
-    public JsonObject getVariables() {
+    public JSONObject getVariables() {
         return variables;
     }
 
-    public void setVariables(JsonObject variables) {
+    public void setVariables(JSONObject variables) {
         this.variables = variables;
     }
 }

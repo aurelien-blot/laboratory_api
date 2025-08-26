@@ -3,7 +3,6 @@ package com.castruche.laboratory_api.fake_profile_api.entity;
 import com.castruche.laboratory_api.main_api.entity.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 @Entity
 public class GeneratedImage extends AbstractEntity {
@@ -43,13 +42,11 @@ public class GeneratedImage extends AbstractEntity {
     private int sTmax;
     private int sTmin;
     private int sNoise;
-    //private Object overrideSettings; //TODO A VOIR
     private boolean overrideSettingsRestoreAfterwards;
     private String refinerCheckpoint;
     private int refinerSwitchAt;
     private boolean disableExtraNetworks;
     private String firstpassImage;
-    //private Object comments; TODO A VOIR
     private boolean enableHr;
     private int firstphaseWidth;
     private int firstphaseHeight;
@@ -73,7 +70,6 @@ public class GeneratedImage extends AbstractEntity {
     private String scriptArgs; //TODO c était un String []
     private boolean sendImages;
     private boolean saveImages;
-    //private Object alwaysonScripts; //TODO A VOIR
     private String infotext;
 
     public String getTemplateTitle() {
@@ -309,14 +305,6 @@ public class GeneratedImage extends AbstractEntity {
         this.sNoise = sNoise;
     }
 
-   /* public Object getOverrideSettings() {
-        return overrideSettings;
-    }
-
-    public void setOverrideSettings(Object overrideSettings) {
-        this.overrideSettings = overrideSettings;
-    }*/
-
     public boolean isOverrideSettingsRestoreAfterwards() {
         return overrideSettingsRestoreAfterwards;
     }
@@ -356,14 +344,6 @@ public class GeneratedImage extends AbstractEntity {
     public void setFirstpassImage(String firstpassImage) {
         this.firstpassImage = firstpassImage;
     }
-
-    /*public Object getComments() {
-        return comments;
-    }
-
-    public void setComments(Object comments) {
-        this.comments = comments;
-    }*/
 
     public boolean isEnableHr() {
         return enableHr;
@@ -516,14 +496,6 @@ public class GeneratedImage extends AbstractEntity {
     public void setSaveImages(boolean saveImages) {
         this.saveImages = saveImages;
     }
-
-    /*public Object getAlwaysonScripts() {
-        return alwaysonScripts;
-    }
-
-    public void setAlwaysonScripts(Object alwaysonScripts) {
-        this.alwaysonScripts = alwaysonScripts;
-    }*/
 
     public String getInfotext() {
         return infotext;

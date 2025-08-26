@@ -16,13 +16,13 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MailService {
+public class QMMailService {
 
-    private static final Logger logger = LogManager.getLogger(MailService.class);
+    private static final Logger logger = LogManager.getLogger(QMMailService.class);
     private static final String QUICK_MAIL_TEMPLATE_SHORTNAME = "mailjet_quick_mail_id";
 
     private final SettingService settingService;
-    public MailService(SettingService settingService) {
+    public QMMailService(SettingService settingService) {
         this.settingService = settingService;
     }
 

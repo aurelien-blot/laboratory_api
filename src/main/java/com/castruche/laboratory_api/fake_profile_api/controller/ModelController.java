@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.castruche.laboratory_api.fake_profile_api.controller.ConstantUrlFakeProfile.IMAGE_TYPE;
 import static com.castruche.laboratory_api.fake_profile_api.controller.ConstantUrlFakeProfile.MODEL;
 
 @RestController

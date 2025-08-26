@@ -1,7 +1,6 @@
 package com.castruche.laboratory_api.fake_profile_api.controller;
 
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.request.GenerationRequestParameterDto;
-import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.response.GenerationResponseDto;
 import com.castruche.laboratory_api.fake_profile_api.service.StableDiffusionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

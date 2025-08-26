@@ -10,6 +10,6 @@ import java.util.List;
 public interface GeneratedImageRepository extends JpaRepository<GeneratedImage, Long> {
 
 
-    public List<GeneratedImage> findByTemplateTitle(String templateTitle);
+    List<GeneratedImage> findByTemplateTitle(String templateTitle);
 
 }
