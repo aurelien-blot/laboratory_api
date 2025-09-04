@@ -71,6 +71,7 @@ jobs:
           SQL_PWD: ${{ secrets.LABORATORY_SQL_PASSWORD }}
           DOMAIN_API: api-castruche.duckdns.org
           FRONT_ORIGIN: https://labo-castruche.duckdns.org,https://my-world-castruche.duckdns.org
+          LABORATORY_JWT_SECRET: ${{ secrets.LABORATORY_JWT_SECRET }}
         run: |
           ssh -4 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
           set -eo pipefail
