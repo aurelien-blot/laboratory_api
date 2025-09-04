@@ -30,10 +30,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/test").permitAll()
+                        /*.requestMatchers("/api/test").permitAll()
                         .requestMatchers("/api/my-world/login").permitAll()
                         .requestMatchers("/api/my-world/test").permitAll()
-                        .requestMatchers("/api/my-world/**").authenticated()
+                        .requestMatchers("/api/my-world/**").authenticated()*/
                         .requestMatchers("/api/**").permitAll()
                         .anyRequest().denyAll()
                 );
