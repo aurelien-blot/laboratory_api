@@ -16,9 +16,11 @@ public class MWPostController {
     public List<PostDto> getAll() {
         List<PostDto> results = new ArrayList<>();
         PostDto post1 = new PostDto();
+        post1.setId(1L);
         post1.setContent("This is the first post ");
         results.add(post1);
         PostDto post2 = new PostDto();
+        post2.setId(2L);
         post2.setContent("This is the second post ");
         results.add(post2);
 
