@@ -30,16 +30,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Libre accès à tout /api/test
                         .requestMatchers("/api/test").permitAll()
-                        // Libre accès à /api/my-world/login
                         .requestMatchers("/api/my-world/login").permitAll()
                         .requestMatchers("/api/my-world/test").permitAll()
-                        // Tout le reste de /api/my-world/** nécessite authentification
                         .requestMatchers("/api/my-world/**").authenticated()
-                        // Tout le reste de /api/** est public
                         .requestMatchers("/api/**").permitAll()
-                        // Par défaut : bloqué
                         .anyRequest().denyAll()
                 );
         return http.build();
