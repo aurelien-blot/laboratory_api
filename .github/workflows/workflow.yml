@@ -91,5 +91,6 @@ jobs:
             -e LABORATORY_SQL_USER="$SQL_USER" \
             -e LABORATORY_SQL_PASSWORD="$SQL_PWD" \
             -e CORS_ALLOWED_ORIGINS="$FRONT_ORIGIN" \
+            -e LABORATORY_JWT_SECRET="$LABORATORY_JWT_SECRET" \
             ghcr.io/$GHCR_USER/laboratory-api:latest
           EOF
