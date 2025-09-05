@@ -1,9 +1,8 @@
 package com.castruche.laboratory_api.myworld_api.controller;
 
 import com.castruche.laboratory_api.myworld_api.dto.post.PostDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.castruche.laboratory_api.myworld_api.service.PostService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,19 +11,21 @@ import java.util.List;
 @RequestMapping(ConstantMyWorldUrl.POST)
 public class MWPostController {
 
+
+    private PostService postService;
+
+    public MWPostController(PostService postService) {
+        this.postService = postService;
+    }
+
     @GetMapping()
     public List<PostDto> getAll() {
-        List<PostDto> results = new ArrayList<>();
-        PostDto post1 = new PostDto();
-        post1.setId(1L);
-        post1.setContent("This is the first post ");
-        results.add(post1);
-        PostDto post2 = new PostDto();
-        post2.setId(2L);
-        post2.setContent("This is the second post ");
-        results.add(post2);
+        return postService.getAllDto();
+    }
 
-        return results;
+    @PostMapping()
+    public PostDto create(@RequestBody PostDto postDto) {
+        return postService.create(postDto);
     }
 
 

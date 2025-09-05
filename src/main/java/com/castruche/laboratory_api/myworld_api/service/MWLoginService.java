@@ -10,6 +10,7 @@ import com.castruche.laboratory_api.myworld_api.dao.UserRepository;
 import com.castruche.laboratory_api.myworld_api.dto.login.LoginResponseDto;
 import com.castruche.laboratory_api.myworld_api.dto.login.LoginUserDto;
 import com.castruche.laboratory_api.myworld_api.dto.user.UserDto;
+import com.castruche.laboratory_api.myworld_api.dto.user.UserLightDto;
 import com.castruche.laboratory_api.myworld_api.entity.User;
 import com.castruche.laboratory_api.myworld_api.formatter.UserFormatter;
 import com.castruche.laboratory_api.myworld_api.service.util.MWMailService;
@@ -23,11 +24,13 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class MWLoginService extends GenericService<User, UserDto, UserDto> {
+public class MWLoginService  {
 
     private static final Logger logger = LogManager.getLogger(MWLoginService.class);
     private final UserRepository userRepository;
     private final UserFormatter userFormatter;
+
+    private final UserService userService;
     private final JwtUtil jwtTokenUtil;
     private final MWMailService mailService;
     private final TypeFormatService typeFormatService;
@@ -35,13 +38,14 @@ public class MWLoginService extends GenericService<User, UserDto, UserDto> {
 
     public MWLoginService(UserRepository userRepository,
                           UserFormatter userFormatter,
+                          UserService userService,
                           JwtUtil jwtTokenUtil,
                           MWMailService mailService,
                           MWSecurityService securityService,
                           TypeFormatService typeFormatService) {
-        super(userRepository, userFormatter);
         this.userRepository = userRepository;
         this.userFormatter = userFormatter;
+        this.userService = userService;
         this.jwtTokenUtil = jwtTokenUtil;
         this.mailService = mailService;
         this.typeFormatService = typeFormatService;
@@ -81,7 +85,7 @@ public class MWLoginService extends GenericService<User, UserDto, UserDto> {
         user.setMailVerificationToken(jwtTokenUtil.generateToken(user.getEmail()));
         this.userRepository.save(user);
         user.setLastVerificationMailDate(LocalDateTime.now());
-        UserDto userDtoSaved = selectDtoById(user.getId());
+        UserDto userDtoSaved = userService.selectDtoById(user.getId());
         this.mailService.sendMailForRegistration(userDtoSaved);
         this.mailService.sendMailForMailVerification(userDtoSaved, user.getMailVerificationToken());
         this.userRepository.save(user);
@@ -164,7 +168,7 @@ public class MWLoginService extends GenericService<User, UserDto, UserDto> {
         else {
             user.setResetPasswordToken(jwtTokenUtil.generateToken(user.getEmail()));
             this.userRepository.save(user);
-            UserDto userDtoSaved = selectDtoById(user.getId());
+            UserDto userDtoSaved = userService.selectDtoById(user.getId());
             this.mailService.sendMailForPasswordReset(userDtoSaved, user.getResetPasswordToken());
             response.setMessage("Email envoyé.");
         }
