@@ -2,7 +2,9 @@ package com.castruche.laboratory_api.myworld_api.controller;
 
 import com.castruche.laboratory_api.myworld_api.dto.post.PostDto;
 import com.castruche.laboratory_api.myworld_api.service.PostService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +21,20 @@ public class MWPostController {
     }
 
     @GetMapping()
-    public List<PostDto> getAll() {
-        return postService.getAllDto();
+    public ResponseEntity<List<PostDto>> getAll() {
+        return ResponseEntity.ok(postService.getAllDto());
     }
 
     @PostMapping()
-    public PostDto create(@RequestBody PostDto postDto) {
-        return postService.create(postDto);
+    public ResponseEntity<PostDto> createPost(
+            @RequestPart("post") PostDto postDto,
+            @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+
+        PostDto saved = postService.createWithFiles(postDto, files);
+
+        return ResponseEntity
+                .status(201) // Created
+                .body(saved);
     }
 
 

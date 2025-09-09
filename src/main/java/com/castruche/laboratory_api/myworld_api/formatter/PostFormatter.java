@@ -2,6 +2,7 @@ package com.castruche.laboratory_api.myworld_api.formatter;
 
 import com.castruche.laboratory_api.main_api.formatter.IFormatter;
 import com.castruche.laboratory_api.myworld_api.dto.post.PostDto;
+import com.castruche.laboratory_api.myworld_api.entity.Picture;
 import com.castruche.laboratory_api.myworld_api.entity.Post;
 import com.castruche.laboratory_api.myworld_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ public class PostFormatter implements IFormatter<Post, PostDto, PostDto> {
 
     private UserFormatter userFormatter;
     private UserService userService;
+    private PictureFormatter pictureFormatter;
 
-    public PostFormatter(UserFormatter userFormatter, UserService userService) {
+    public PostFormatter(UserFormatter userFormatter, UserService userService, PictureFormatter pictureFormatter) {
         this.userFormatter = userFormatter;
         this.userService = userService;
+        this.pictureFormatter = pictureFormatter;
     }
 
     @Override
@@ -32,6 +35,9 @@ public class PostFormatter implements IFormatter<Post, PostDto, PostDto> {
         dto.setModificationTime(entity.getModificationTime());
         if(entity.getCreationBy()!=null && entity.getCreationBy().getId() != null){
             dto.setCreationBy(userFormatter.entityToLightDto(entity.getCreationBy()));
+        }
+        if(entity.getPictureList() != null){
+            dto.setPictureList(pictureFormatter.entityToLightDto(entity.getPictureList()));
         }
         return dto;
     }

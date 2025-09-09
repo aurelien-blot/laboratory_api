@@ -7,6 +7,7 @@ import com.castruche.laboratory_api.myworld_api.dto.login.LoginResponseDto;
 import com.castruche.laboratory_api.myworld_api.dto.login.LoginUserDto;
 import com.castruche.laboratory_api.myworld_api.dto.user.UserDto;
 import com.castruche.laboratory_api.myworld_api.service.MWLoginService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.castruche.laboratory_api.myworld_api.controller.ConstantMyWorldUrl.LOGIN;
@@ -16,42 +17,45 @@ import static com.castruche.laboratory_api.myworld_api.controller.ConstantMyWorl
 public class MWLoginController {
 
     private final MWLoginService loginService;
+
     public MWLoginController(MWLoginService loginService) {
         this.loginService = loginService;
     }
 
     @PostMapping()
-    public LoginResponseDto login(@RequestBody LoginUserDto userDto) {
-        return loginService.login(userDto);
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginUserDto userDto) {
+        LoginResponseDto response = loginService.login(userDto);
+        return ResponseEntity.ok(response);
     }
+
     @PostMapping("/register")
-    public UserDto register(@RequestBody UserDto userDto) {
-        return loginService.register(userDto);
+    public ResponseEntity<UserDto> register(@RequestBody UserDto userDto) {
+        UserDto saved = loginService.register(userDto);
+        return ResponseEntity.status(201).body(saved); // 201 Created
     }
 
     @GetMapping("/availability/username/{username}")
-    public BooleanResponseDto checkUsernameAvailability(@PathVariable("username") String username) {
-        return loginService.checkUsernameAvailability(username);
+    public ResponseEntity<BooleanResponseDto> checkUsernameAvailability(@PathVariable String username) {
+        return ResponseEntity.ok(loginService.checkUsernameAvailability(username));
     }
 
     @GetMapping("/availability/mail/{mail}")
-    public BooleanResponseDto checkMailAvailability(@PathVariable("mail") String mail) {
-        return loginService.checkMailAvailability(mail);
+    public ResponseEntity<BooleanResponseDto> checkMailAvailability(@PathVariable String mail) {
+        return ResponseEntity.ok(loginService.checkMailAvailability(mail));
     }
 
     @GetMapping("/verify/mail/{token}")
-    public BooleanResponseDto verifyMail(@PathVariable("token") String token) {
-        return loginService.verifyMail(token);
+    public ResponseEntity<BooleanResponseDto> verifyMail(@PathVariable String token) {
+        return ResponseEntity.ok(loginService.verifyMail(token));
     }
 
     @PostMapping("/reset-password/request")
-    public BooleanResponseDto sendResetPasswordMail(@RequestBody UserMailDto userMailDto) {
-        return loginService.sendResetPasswordMail(userMailDto);
+    public ResponseEntity<BooleanResponseDto> sendResetPasswordMail(@RequestBody UserMailDto userMailDto) {
+        return ResponseEntity.ok(loginService.sendResetPasswordMail(userMailDto));
     }
 
     @PostMapping("/reset-password")
-    public BooleanResponseDto resetPassword(@RequestBody PasswordDto passwordDto) {
-        return loginService.resetPassword(passwordDto);
+    public ResponseEntity<BooleanResponseDto> resetPassword(@RequestBody PasswordDto passwordDto) {
+        return ResponseEntity.ok(loginService.resetPassword(passwordDto));
     }
-
 }

@@ -55,6 +55,7 @@ public abstract class GenericService<ENTITY, DTO, LIGHT_DTO> {
     public DTO create(DTO dto) {
         ENTITY entity = formatter.dtoToEntity(dto);
         entity = repository.save(entity);
+        postCommonAction(dto, entity);
         return formatter.entityToDto(entity);
     }
 
@@ -68,5 +69,9 @@ public abstract class GenericService<ENTITY, DTO, LIGHT_DTO> {
     @Transactional
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public void postCommonAction(DTO dto, ENTITY entity){
+        return;
     }
 }

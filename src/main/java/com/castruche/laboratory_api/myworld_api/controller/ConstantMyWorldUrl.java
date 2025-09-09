@@ -8,4 +8,5 @@ public class ConstantMyWorldUrl {
     public static final String TEST = ROOT+"/test";
     public static final String LOGIN = ROOT+"/login";
     public static final String POST = ROOT+"/post";
+    public static final String FILE = ROOT+"/file";
 }
