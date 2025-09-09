@@ -95,6 +95,6 @@ jobs:
             -e CORS_ALLOWED_ORIGINS="$FRONT_ORIGIN" \
             -e LABORATORY_JWT_SECRET="$LABORATORY_JWT_SECRET" \
             -e MY_WORLD_FILE_UPLOAD_DIR="$MY_WORLD_FILE_UPLOAD_DIR" \
-            -v /srv/myworld/uploads:/app/uploads 
+            -v /srv/myworld/uploads:/app/uploads \
             ghcr.io/$GHCR_USER/laboratory-api:latest
           EOF

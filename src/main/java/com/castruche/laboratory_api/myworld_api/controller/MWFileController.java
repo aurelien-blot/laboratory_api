@@ -16,11 +16,11 @@ public class MWFileController {
 
 
     @GetMapping()
-    public ResponseEntity<Resource> getPicture(@RequestParam String filepath) {
+    public ResponseEntity<Resource> getPicture(@RequestParam String filePath) {
         // TODO: check if the file is accessible by the user
-        if(null == filepath) return ResponseEntity.notFound().build();
+        if(null == filePath) return ResponseEntity.notFound().build();
 
-        Path p = Path.of(filepath);
+        Path p = Path.of(filePath);
         if (!Files.exists(p)) return ResponseEntity.notFound().build();
 
         try{
