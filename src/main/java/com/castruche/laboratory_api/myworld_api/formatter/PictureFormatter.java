@@ -48,7 +48,7 @@ public class PictureFormatter implements IFormatter<Picture, PictureDto, Picture
         entity.setCreationTime(dto.getCreationTime());
         entity.setModificationTime(dto.getModificationTime());
         
-        return entity;
+        return updateEntityFromDto(entity, dto);
     }
 
     @Override
@@ -62,19 +62,28 @@ public class PictureFormatter implements IFormatter<Picture, PictureDto, Picture
     }
 
 
-    public Picture fileToEntity(MultipartFile file){
+    public Picture fileToEntity(MultipartFile file, String suffix){
         Picture entity = new Picture();
-        entity.setFilename(file.getOriginalFilename());
+        String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+        String filenameWithoutExtension = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
+        String newFileName = filenameWithoutExtension+suffix+extension;
+
+        entity.setFilename(newFileName);
         entity.setExtension(entity.getFilename().substring(entity.getFilename().lastIndexOf(".")));
         entity.setOriginalSize(Double.valueOf(file.getSize()));
         return entity;
     }
 
-    public List<Picture> filesToEntities(List<MultipartFile> files){
+    public List<Picture> filesToEntities(List<MultipartFile> files, String suffix){
         List<Picture> entities = new ArrayList<>();
         if(files==null){
             return entities;
         }
-        return files.stream().map(this::fileToEntity).toList();
+        return files.stream().map(file -> fileToEntity(file, suffix)).toList();
+    }
+
+    @Override
+    public Picture updateEntityFromDto(Picture entity, PictureDto dto) {
+        return entity;
     }
 }

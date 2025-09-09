@@ -37,5 +37,19 @@ public class MWPostController {
                 .body(saved);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable Long id,
+                                              @RequestPart("post") PostDto postDto,
+                                              @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        PostDto updated = postService.updateWithFiles(id, postDto, files);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+        postService.deletePostAndFiles(id);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

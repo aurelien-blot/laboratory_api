@@ -1,9 +1,7 @@
 package com.castruche.laboratory_api.myworld_api.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.castruche.laboratory_api.main_api.entity.AbstractEntity;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class Post extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User creationBy;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Picture> pictureList;
 
 

@@ -25,4 +25,6 @@ public interface IFormatter<ENTITY, DTO, LIGHT_DTO> {
         return results;
     }
 
+    ENTITY updateEntityFromDto(ENTITY entity, DTO dto);
+
 }

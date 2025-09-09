@@ -41,19 +41,15 @@ public class ModelFormatter implements IFormatter<Model, ModelDto, ModelDto> {
 
     @Override
     public Model dtoToEntity(ModelDto dto) {
-        Model model ;
+        Model entity ;
         if(null!=dto.getId()){
-            model = modelRepository.findById(dto.getId()).orElse(null);
+            entity = modelRepository.findById(dto.getId()).orElse(null);
         }
         else{
-            model = new Model();
+            entity = new Model();
         }
-        assert model != null;
-        model.setPrompt(dto.getPrompt());
-        model.setNegativePrompt(dto.getNegativePrompt());
-        model.setDescription(dto.getDescription());
-        model.setName(dto.getName());
-        return model;
+
+        return updateEntityFromDto(entity, dto);
     }
 
     @Override
@@ -66,4 +62,13 @@ public class ModelFormatter implements IFormatter<Model, ModelDto, ModelDto> {
         return IFormatter.super.entityToLightDto(models);
     }
 
+    @Override
+    public Model updateEntityFromDto(Model entity, ModelDto dto) {
+        assert entity != null;
+        entity.setPrompt(dto.getPrompt());
+        entity.setNegativePrompt(dto.getNegativePrompt());
+        entity.setDescription(dto.getDescription());
+        entity.setName(dto.getName());
+        return entity;
+    }
 }

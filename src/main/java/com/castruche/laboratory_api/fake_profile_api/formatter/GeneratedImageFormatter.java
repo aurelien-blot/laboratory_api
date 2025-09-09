@@ -45,7 +45,7 @@ public class GeneratedImageFormatter implements IFormatter<GeneratedImage, Gener
     public GeneratedImage dtoToEntity(GeneratedImageDto dto) {
         GeneratedImage generatedImage = new GeneratedImage();
         generatedImage.setId(dto.getId());
-        return generatedImage;
+        return updateEntityFromDto(generatedImage, dto);
     }
 
     @Override
@@ -56,6 +56,11 @@ public class GeneratedImageFormatter implements IFormatter<GeneratedImage, Gener
     @Override
     public List<GeneratedImageDto> entityToLightDto(List<GeneratedImage> generatedImages) {
         return IFormatter.super.entityToLightDto(generatedImages);
+    }
+
+    @Override
+    public GeneratedImage updateEntityFromDto(GeneratedImage entity, GeneratedImageDto dto) {
+        return entity;
     }
 
 }

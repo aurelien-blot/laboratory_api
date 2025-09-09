@@ -42,11 +42,8 @@ public class UserFormatter implements IFormatter<User, UserDto, UserLightDto> {
     public User dtoToEntity(UserDto dto) {
         User user = new User();
         user.setId(dto.getId());
-        user.setUsername(dto.getUsername());
-        user.setEmail(dto.getEmail());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
-        return user;
+
+        return updateEntityFromDto(user, dto);
     }
 
     @Override
@@ -67,5 +64,14 @@ public class UserFormatter implements IFormatter<User, UserDto, UserLightDto> {
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
         return dto;
+    }
+
+    @Override
+    public User updateEntityFromDto(User entity, UserDto dto) {
+        entity.setUsername(dto.getUsername());
+        entity.setEmail(dto.getEmail());
+        entity.setFirstName(dto.getFirstName());
+        entity.setLastName(dto.getLastName());
+        return entity;
     }
 }

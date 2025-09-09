@@ -36,8 +36,8 @@ public class PictureService extends GenericService<Picture, PictureDto, PictureR
         return repository.saveAll(entities);
     }
 
-    public List<Picture> convertFilesToPictures(List<MultipartFile> files, Post post){
-        List<Picture> results = pictureFormatter.filesToEntities(files);
+    public List<Picture> convertFilesToPictures(List<MultipartFile> files, Post post, String suffix){
+        List<Picture> results = pictureFormatter.filesToEntities(files, suffix);
         for(Picture picture : results){
             picture.setPost(post);
             picture.setOriginalFilepath(fileService.generateOriginalPostPictureFilepath(picture.getFilename(), post.getCreationBy().getId(), post.getId()));

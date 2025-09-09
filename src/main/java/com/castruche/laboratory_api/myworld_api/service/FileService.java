@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,23 +29,25 @@ public class FileService {
     private int resizedMaxHeight;
 
     public String generateResizedPostPictureFilepath(String filename, Long userId, Long postId) {
-        return uploadDir + "/" + RESIZED_FOLDER + generateFilePathEnd(filename, userId, postId);
+        return generateFilePath(RESIZED_FOLDER, filename, userId, postId);
     }
 
     public String generateOriginalPostPictureFilepath(String filename, Long userId, Long postId) {
-        return uploadDir + "/" + ORIGINAL_FOLDER + generateFilePathEnd(filename, userId, postId);
+        return generateFilePath(ORIGINAL_FOLDER, filename, userId, postId);
     }
 
-    private String generateFilePathEnd(String filename, Long userId, Long postId) {
-        return "/" + userId + "/posts/" + postId + "/" + filename;
+    private String generateFilePath(String type, String filename, Long userId, Long postId) {
+        return generateFolderPath(type, userId, postId)+ "/" + filename;
     }
 
-    public File savePostPictureOriginalFile(MultipartFile file, Long userId, Long postId) {
+    private String generateFolderPath(String type, Long userId, Long postId) {
+        return uploadDir + "/" + type + "/" + userId + "/posts/" + postId ;
+    }
+
+    public File savePostPictureOriginalFile(MultipartFile file,String filename, Long userId, Long postId) {
         if (null == file) {
             return null;
         }
-
-        String filename = file.getOriginalFilename();
         String originalFilepath = generateOriginalPostPictureFilepath(filename, userId, postId);
         try {
             File originalFile = new File(originalFilepath);
@@ -57,11 +60,10 @@ public class FileService {
         return null;
     }
 
-    public void savePostPictureResizedFile(File file, Long userId, Long postId) {
+    public void savePostPictureResizedFile(File file,String filename, Long userId, Long postId) {
         if (null == file) {
             return;
         }
-        String filename = file.getName();
         String resizedFilepath = generateResizedPostPictureFilepath(filename, userId, postId);
         try {
             File resizedFile = new File(resizedFilepath);
@@ -74,6 +76,30 @@ public class FileService {
         } catch (Exception e) {
             logger.error("Erreur lors de la sauvegarde du fichier redimensionné : " + resizedFilepath, e);
         }
+    }
 
+    public void deletePostPictureOriginalFolder(Long userId, Long postId){
+        deletePostPictureFolder(ORIGINAL_FOLDER, userId, postId);
+    }
+
+    public void deletePostPictureResizedFolder(Long userId, Long postId){
+        deletePostPictureFolder(RESIZED_FOLDER, userId, postId);
+    }
+
+    private void deletePostPictureFolder(String type, Long userId, Long postId){
+        String folderPath = generateFolderPath(type, userId, postId);
+        try {
+            File folder = new File(folderPath);
+            if (folder.exists()) {
+                File[] files = folder.listFiles();
+                for (File file : files) {
+                    file.delete();
+                }
+                folder.delete();
+            }
+        }
+        catch (Exception e) {
+            logger.error("Erreur lors de la suppression du dossier : " + folderPath, e);
+        }
     }
 }

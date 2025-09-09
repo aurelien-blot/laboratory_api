@@ -30,7 +30,7 @@ public class MapFormatter implements IFormatter<Map, MapDto, MapDto> {
     public Map dtoToEntity(MapDto dto) {
         Map map = new Map();
         map.setId(dto.getId());
-        return map;
+        return updateEntityFromDto(map, dto);
     }
 
     @Override
@@ -43,4 +43,8 @@ public class MapFormatter implements IFormatter<Map, MapDto, MapDto> {
         return IFormatter.super.entityToLightDto(maps);
     }
 
+    @Override
+    public Map updateEntityFromDto(Map entity, MapDto dto) {
+        return entity;
+    }
 }

@@ -43,13 +43,9 @@ public class BiomeFormatter implements IFormatter<Biome, BiomeDto, BiomeLightDto
 
     @Override
     public Biome dtoToEntity(BiomeDto dto) {
-        Biome biome = new Biome();
-        biome.setId(dto.getId());
-        biome.setTechnicalName(dto.getTechnicalName());
-        biome.setName(dto.getName());
-        biome.setColor(dto.getColor());
-
-        return biome;
+        Biome entity = new Biome();
+        entity.setId(dto.getId());
+        return updateEntityFromDto(entity, dto);
     }
 
     @Override
@@ -62,4 +58,11 @@ public class BiomeFormatter implements IFormatter<Biome, BiomeDto, BiomeLightDto
         return IFormatter.super.entityToLightDto(biomes);
     }
 
+    @Override
+    public Biome updateEntityFromDto(Biome entity, BiomeDto dto) {
+        entity.setTechnicalName(dto.getTechnicalName());
+        entity.setName(dto.getName());
+        entity.setColor(dto.getColor());
+        return entity;
+    }
 }

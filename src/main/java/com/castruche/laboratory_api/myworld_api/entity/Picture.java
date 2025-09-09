@@ -1,5 +1,6 @@
 package com.castruche.laboratory_api.myworld_api.entity;
 
+import com.castruche.laboratory_api.main_api.entity.AbstractEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;

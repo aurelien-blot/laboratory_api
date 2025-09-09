@@ -51,14 +51,13 @@ public class PostFormatter implements IFormatter<Post, PostDto, PostDto> {
     public Post dtoToEntity(PostDto dto) {
         Post entity = new Post();
         entity.setId(dto.getId());
-        entity.setContent(dto.getContent());
         entity.setCreationTime(dto.getCreationTime());
         entity.setModificationTime(dto.getModificationTime());
         if(dto.getCreationBy() != null && dto.getCreationBy().getId() != null){
             entity.setCreationBy(userService.selectById(dto.getCreationBy().getId()));
         }
 
-        return entity;
+        return updateEntityFromDto(entity, dto);
     }
 
     @Override
@@ -71,4 +70,9 @@ public class PostFormatter implements IFormatter<Post, PostDto, PostDto> {
         return IFormatter.super.entityToDto(list);
     }
 
+    @Override
+    public Post updateEntityFromDto(Post entity, PostDto dto) {
+        entity.setContent(dto.getContent());
+        return entity;
+    }
 }

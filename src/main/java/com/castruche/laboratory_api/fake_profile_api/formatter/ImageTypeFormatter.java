@@ -49,39 +49,14 @@ public class ImageTypeFormatter implements IFormatter<ImageType, ImageTypeDto, I
 
     @Override
     public ImageType dtoToEntity(ImageTypeDto dto) {
-        ImageType imageType ;
+        ImageType entity ;
         if(null!=dto.getId()){
-            imageType = imageTypeRepository.findById(dto.getId()).orElse(null);
+            entity = imageTypeRepository.findById(dto.getId()).orElse(null);
         }
         else{
-            imageType = new ImageType();
+            entity = new ImageType();
         }
-        assert imageType != null;
-        imageType.setDescription(dto.getDescription());
-        imageType.setName(dto.getName());
-        if(null==dto.getSeed()){
-            imageType.setSeed(-1L);
-        }
-        else{
-            imageType.setSeed(dto.getSeed());
-        }
-        imageType.setSubseed(dto.getSubseed());
-        imageType.setWidth(dto.getWidth());
-        imageType.setHeight(dto.getHeight());
-        imageType.setSamplerName(dto.getSamplerName());
-        imageType.setCfgScale(dto.getCfgScale());
-        imageType.setSteps(dto.getSteps());
-        if(null!=dto.getRestoreFaces()){
-            imageType.setRestoreFaces(dto.getRestoreFaces());
-        }
-        else{
-            imageType.setRestoreFaces(false);
-        }
-        imageType.setFaceRestorationModel(dto.getFaceRestorationModel());
-        imageType.setSdModelCheckpoint(dto.getSdModelCheckpoint());
-        imageType.setDenoisingStrength(dto.getDenoisingStrength());
-
-        return imageType;
+        return updateEntityFromDto(entity, dto);
     }
 
     @Override
@@ -92,6 +67,36 @@ public class ImageTypeFormatter implements IFormatter<ImageType, ImageTypeDto, I
     @Override
     public List<ImageTypeDto> entityToLightDto(List<ImageType> imageTypes) {
         return IFormatter.super.entityToLightDto(imageTypes);
+    }
+
+    @Override
+    public ImageType updateEntityFromDto(ImageType entity, ImageTypeDto dto) {
+        assert entity != null;
+        entity.setDescription(dto.getDescription());
+        entity.setName(dto.getName());
+        if(null==dto.getSeed()){
+            entity.setSeed(-1L);
+        }
+        else{
+            entity.setSeed(dto.getSeed());
+        }
+        entity.setSubseed(dto.getSubseed());
+        entity.setWidth(dto.getWidth());
+        entity.setHeight(dto.getHeight());
+        entity.setSamplerName(dto.getSamplerName());
+        entity.setCfgScale(dto.getCfgScale());
+        entity.setSteps(dto.getSteps());
+        if(null!=dto.getRestoreFaces()){
+            entity.setRestoreFaces(dto.getRestoreFaces());
+        }
+        else{
+            entity.setRestoreFaces(false);
+        }
+        entity.setFaceRestorationModel(dto.getFaceRestorationModel());
+        entity.setSdModelCheckpoint(dto.getSdModelCheckpoint());
+        entity.setDenoisingStrength(dto.getDenoisingStrength());
+
+        return entity;
     }
 
 }

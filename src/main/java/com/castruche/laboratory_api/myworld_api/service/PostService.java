@@ -40,23 +40,47 @@ public class PostService extends GenericService<Post, PostDto, PostDto> {
     }
 
     @Transactional
-    public PostDto createWithFiles(PostDto postDto, List<MultipartFile> files) {
-        PostDto postDtoCreated = create(postDto);
+    public PostDto createWithFiles(PostDto dto, List<MultipartFile> files) {
+        PostDto postDtoCreated = create(dto);
+        return addPostPictureFiles(postDtoCreated.getId(), postDtoCreated, files);
+    }
 
+    @Transactional
+    public PostDto updateWithFiles(Long id, PostDto dto, List<MultipartFile> files) {
+        PostDto updatedDto = update(dto);
+        return addPostPictureFiles(id, updatedDto, files);
+    }
+
+    private PostDto addPostPictureFiles(Long id, PostDto dto, List<MultipartFile> files){
         if(files!=null && !files.isEmpty()){
-            Post entity = selectById(postDtoCreated.getId());
-            List<Picture> pictures = pictureService.convertFilesToPictures(files, entity);
+            Post entity = selectById(id);
+            String filenameSuffix = "_"+(new Date().getTime());
+            List<Picture> pictures = pictureService.convertFilesToPictures(files, entity, filenameSuffix);
             pictureService.createAll(pictures);
             entity.setModificationTime(LocalDateTime.now());
             for(MultipartFile file : files){
-                File originalFile = fileService.savePostPictureOriginalFile(file, entity.getCreationBy().getId(), entity.getId());
-                fileService.savePostPictureResizedFile(originalFile, entity.getCreationBy().getId(), entity.getId());
+                String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+                String filenameWithoutExtension = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
+                String newFileName = filenameWithoutExtension+filenameSuffix+extension;
+                File originalFile = fileService.savePostPictureOriginalFile(file, newFileName, entity.getCreationBy().getId(), entity.getId());
+                fileService.savePostPictureResizedFile(originalFile,newFileName,  entity.getCreationBy().getId(), entity.getId());
             }
 
-            postDtoCreated = selectDtoById(entity.getId());
+            dto = selectDtoById(entity.getId());
         }
+        return dto;
+    }
 
-        return postDtoCreated;
+    @Transactional
+    public void deletePostAndFiles(Long id) {
+        Post entity = selectById(id);
+        if(null!=entity.getPictureList()){
+            for(Picture picture : entity.getPictureList()){
+                fileService.deletePostPictureOriginalFolder(entity.getCreationBy().getId(), picture.getPost().getId());
+                fileService.deletePostPictureResizedFolder(entity.getCreationBy().getId(), picture.getPost().getId());
+            }
+        }
+        delete(entity.getId());
     }
 
 

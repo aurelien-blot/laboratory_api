@@ -1,12 +1,14 @@
 package com.castruche.laboratory_api.main_api.service;
 
+import com.castruche.laboratory_api.main_api.dto.AbstractDto;
+import com.castruche.laboratory_api.main_api.entity.AbstractEntity;
 import com.castruche.laboratory_api.main_api.formatter.IFormatter;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public abstract class GenericService<ENTITY, DTO, LIGHT_DTO> {
+public abstract class GenericService<ENTITY extends AbstractEntity, DTO extends AbstractDto, LIGHT_DTO extends AbstractDto> {
 
     private final JpaRepository<ENTITY, Long> repository;
     private final IFormatter<ENTITY, DTO, LIGHT_DTO> formatter;
@@ -61,7 +63,8 @@ public abstract class GenericService<ENTITY, DTO, LIGHT_DTO> {
 
     @Transactional
     public DTO update(DTO dto) {
-        ENTITY entity = formatter.dtoToEntity(dto);
+        ENTITY entity = this.selectById(dto.getId());
+        entity = formatter.updateEntityFromDto(entity, dto);
         entity = repository.save(entity);
         return formatter.entityToDto(entity);
     }
