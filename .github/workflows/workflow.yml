@@ -96,13 +96,13 @@ jobs:
             -e LABORATORY_JWT_SECRET="$LABORATORY_JWT_SECRET" \
             -e MY_WORLD_FILE_UPLOAD_DIR="$MY_WORLD_FILE_UPLOAD_DIR" \
             -v /srv/myworld/uploads:/app/uploads \  
-            --label "traefik.enable=true" \
-            --label 'traefik.http.routers.myworld.rule=Host("my-world-castruche.duckdns.org") && PathPrefix("/api/my-world")' \
-            --label "traefik.http.routers.myworld.entrypoints=websecure" \
-            --label "traefik.http.routers.myworld.tls.certresolver=le" \
-            --label "traefik.http.services.myworld.loadbalancer.server.port=8080" \
-            --label "traefik.http.middlewares.largeupload.buffering.maxRequestBodyBytes=104857600" \
-            --label "traefik.http.middlewares.largeupload.buffering.memRequestBodyBytes=2097152" \
-            --label "traefik.http.routers.myworld.middlewares=largeupload@docker" \
+            --label traefik.enable=true \
+            --label "traefik.http.routers.api.rule=Host(\"\$DOMAIN_API\") && PathPrefix(\"\$PATH_PREFIX\")" \
+            --label traefik.http.routers.api.entrypoints=websecure \
+            --label traefik.http.routers.api.tls.certresolver=le \
+            --label traefik.http.services.api.loadbalancer.server.port=\$LABORATORY_API_PORT \
+            --label traefik.http.middlewares.largeupload.buffering.maxRequestBodyBytes=104857600 \
+            --label traefik.http.middlewares.largeupload.buffering.memRequestBodyBytes=2097152 \
+            --label traefik.http.routers.api.middlewares=largeupload@docker \
             ghcr.io/$GHCR_USER/laboratory-api:latest
           EOF
