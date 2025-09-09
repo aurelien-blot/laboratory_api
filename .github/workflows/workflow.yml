@@ -97,7 +97,8 @@ jobs:
             -e MY_WORLD_FILE_UPLOAD_DIR="$MY_WORLD_FILE_UPLOAD_DIR" \
             -v /srv/myworld/uploads:/app/uploads \  
             --label traefik.enable=true \
-            --label "traefik.http.routers.api.rule=Host(\"\$DOMAIN_API\") && PathPrefix(\"\$PATH_PREFIX\")" \
+            --label "traefik.http.routers.my-world.rule=Host(\"$DOMAIN\")" \
+            --label "traefik.http.routers.api.rule=Host(\"$DOMAIN_API\") && PathPrefix(\"$PATH_PREFIX\")" \
             --label traefik.http.routers.api.entrypoints=websecure \
             --label traefik.http.routers.api.tls.certresolver=le \
             --label traefik.http.services.api.loadbalancer.server.port=\$LABORATORY_API_PORT \
