@@ -31,6 +31,7 @@ public class PictureService extends GenericService<Picture, PictureDto, PictureR
         this.fileService = fileService;
     }
 
+
     @Transactional
     public List<Picture> createAll(List<Picture> entities){
         return repository.saveAll(entities);

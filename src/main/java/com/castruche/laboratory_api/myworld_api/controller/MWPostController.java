@@ -50,6 +50,11 @@ public class MWPostController {
         postService.deletePostAndFiles(id);
         return ResponseEntity.ok().build();
     }
+    @DeleteMapping("/pic/{postId}/{pictureId}")
+    public ResponseEntity<Void> deletePostPicture(@PathVariable Long postId, @PathVariable Long pictureId) {
+        postService.deletePostPicture(postId, pictureId);
+        return ResponseEntity.ok().build();
+    }
 
 
 }

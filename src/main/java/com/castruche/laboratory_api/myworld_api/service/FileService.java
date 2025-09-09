@@ -1,5 +1,6 @@
 package com.castruche.laboratory_api.myworld_api.service;
 
+import com.castruche.laboratory_api.myworld_api.entity.Picture;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -70,7 +71,7 @@ public class FileService {
             resizedFile.getParentFile().mkdirs();
             Thumbnails.of(file)
                     .size(resizedMaxWidth, resizedMaxHeight)
-                    .outputFormat("jpg")
+                    //.outputFormat("jpg")
                     .outputQuality(0.85)
                     .toFile(resizedFile);
         } catch (Exception e) {
@@ -84,6 +85,30 @@ public class FileService {
 
     public void deletePostPictureResizedFolder(Long userId, Long postId){
         deletePostPictureFolder(RESIZED_FOLDER, userId, postId);
+    }
+
+    public void deletePostPictureOriginalFile(Picture picture){
+        String originalFilepath = generateOriginalPostPictureFilepath(picture.getFilename(), picture.getPost().getCreationBy().getId(), picture.getPost().getId());
+        try {
+            File originalFile = new File(originalFilepath);
+            originalFile.delete();
+        }
+        catch (Exception e){
+            logger.error("Erreur lors de la suppression du fichier original : " + originalFilepath, e);
+        }
+
+    }
+
+    public void deletePostPictureResizedFile(Picture picture){
+        String originalFilepath = generateResizedPostPictureFilepath(picture.getFilename(), picture.getPost().getCreationBy().getId(), picture.getPost().getId());
+        try {
+            File originalFile = new File(originalFilepath);
+            originalFile.delete();
+        }
+        catch (Exception e){
+            logger.error("Erreur lors de la suppression du fichier original : " + originalFilepath, e);
+        }
+
     }
 
     private void deletePostPictureFolder(String type, Long userId, Long postId){

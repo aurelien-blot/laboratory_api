@@ -83,5 +83,19 @@ public class PostService extends GenericService<Post, PostDto, PostDto> {
         delete(entity.getId());
     }
 
+    @Transactional
+    public void deletePostPicture(Long postId, Long pictureId) {
+        Picture picture = pictureService.selectById(pictureId);
+        //On check si le picture appartient au post au cas où
+        if(null!=picture.getPost() && picture.getPost().getId().equals(postId)){
+            fileService.deletePostPictureOriginalFile(picture);
+            fileService.deletePostPictureResizedFile(picture);
+            pictureService.delete(pictureId);
+        }
+        else{
+            throw new RuntimeException("Le picture "+pictureId+" n'appartient pas au post "+postId);
+        }
+    }
+
 
 }
