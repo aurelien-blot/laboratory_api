@@ -72,7 +72,7 @@ jobs:
           DOMAIN_API: api-castruche.duckdns.org
           FRONT_ORIGIN: https://labo-castruche.duckdns.org,https://my-world-castruche.duckdns.org
           LABORATORY_JWT_SECRET: ${{ secrets.LABORATORY_JWT_SECRET }}
-          MY_WORLD_FILE_UPLOAD_DIR : /app/uploads
+          MY_WORLD_FILE_UPLOAD_DIR: /app/uploads
         run: |
           ssh -4 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
           set -eo pipefail
@@ -95,6 +95,14 @@ jobs:
             -e CORS_ALLOWED_ORIGINS="$FRONT_ORIGIN" \
             -e LABORATORY_JWT_SECRET="$LABORATORY_JWT_SECRET" \
             -e MY_WORLD_FILE_UPLOAD_DIR="$MY_WORLD_FILE_UPLOAD_DIR" \
-            -v /srv/myworld/uploads:/app/uploads \
+            -v /srv/myworld/uploads:/app/uploads \  
+            --label "traefik.enable=true" \
+            --label 'traefik.http.routers.myworld.rule=Host("my-world-castruche.duckdns.org") && PathPrefix("/api/my-world")' \
+            --label "traefik.http.routers.myworld.entrypoints=websecure" \
+            --label "traefik.http.routers.myworld.tls.certresolver=le" \
+            --label "traefik.http.services.myworld.loadbalancer.server.port=8080" \
+            --label "traefik.http.middlewares.largeupload.buffering.maxRequestBodyBytes=104857600" \
+            --label "traefik.http.middlewares.largeupload.buffering.memRequestBodyBytes=2097152" \
+            --label "traefik.http.routers.myworld.middlewares=largeupload@docker" \
             ghcr.io/$GHCR_USER/laboratory-api:latest
           EOF
