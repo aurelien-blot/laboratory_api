@@ -55,8 +55,4 @@ public class GenericServiceTest {
         verify(repository).save(entity);
     }
 
-    @Test
-    void test(){
-        assert (1+1==3);
-    }
 }
