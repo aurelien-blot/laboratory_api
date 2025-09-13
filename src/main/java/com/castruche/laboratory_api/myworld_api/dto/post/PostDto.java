@@ -1,7 +1,6 @@
 package com.castruche.laboratory_api.myworld_api.dto.post;
 
 import com.castruche.laboratory_api.main_api.dto.AbstractDto;
-import com.castruche.laboratory_api.myworld_api.dto.picture.PictureDto;
 import com.castruche.laboratory_api.myworld_api.dto.picture.PictureResizedDto;
 import com.castruche.laboratory_api.myworld_api.dto.user.UserLightDto;
 

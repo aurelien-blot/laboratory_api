@@ -4,7 +4,6 @@ import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.reques
 import com.castruche.laboratory_api.fake_profile_api.dto.stable_diffusion.response.GenerationResponseDto;
 import com.castruche.laboratory_api.main_api.service.util.SettingService;
 import com.castruche.laboratory_api.main_api.service.util.WebClientService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

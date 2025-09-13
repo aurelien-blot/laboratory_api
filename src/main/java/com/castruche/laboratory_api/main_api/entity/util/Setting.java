@@ -1,6 +1,7 @@
 package com.castruche.laboratory_api.main_api.entity.util;
 
 import com.castruche.laboratory_api.main_api.entity.AbstractEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ public class Setting extends AbstractEntity {
 
     private String label;
 
+    @Column(name = "\"value\"")  // guillemets SQL standard
     private String value;
 
     private LocalDateTime dateValue;

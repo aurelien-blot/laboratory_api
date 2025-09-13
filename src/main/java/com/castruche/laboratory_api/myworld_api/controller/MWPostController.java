@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,7 +13,7 @@ import java.util.List;
 public class MWPostController {
 
 
-    private PostService postService;
+    private final PostService postService;
 
     public MWPostController(PostService postService) {
         this.postService = postService;

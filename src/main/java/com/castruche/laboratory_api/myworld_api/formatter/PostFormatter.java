@@ -2,10 +2,8 @@ package com.castruche.laboratory_api.myworld_api.formatter;
 
 import com.castruche.laboratory_api.main_api.formatter.IFormatter;
 import com.castruche.laboratory_api.myworld_api.dto.post.PostDto;
-import com.castruche.laboratory_api.myworld_api.entity.Picture;
 import com.castruche.laboratory_api.myworld_api.entity.Post;
 import com.castruche.laboratory_api.myworld_api.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +11,9 @@ import java.util.List;
 @Service
 public class PostFormatter implements IFormatter<Post, PostDto, PostDto> {
 
-    private UserFormatter userFormatter;
-    private UserService userService;
-    private PictureFormatter pictureFormatter;
+    private final UserFormatter userFormatter;
+    private final UserService userService;
+    private final PictureFormatter pictureFormatter;
 
     public PostFormatter(UserFormatter userFormatter, UserService userService, PictureFormatter pictureFormatter) {
         this.userFormatter = userFormatter;

@@ -4,7 +4,6 @@ import com.castruche.laboratory_api.main_api.formatter.IFormatter;
 import com.castruche.laboratory_api.myworld_api.dto.picture.PictureDto;
 import com.castruche.laboratory_api.myworld_api.dto.picture.PictureResizedDto;
 import com.castruche.laboratory_api.myworld_api.entity.Picture;
-import com.castruche.laboratory_api.myworld_api.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

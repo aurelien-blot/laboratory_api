@@ -2,12 +2,13 @@ package com.castruche.laboratory_api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
+@SpringBootTest(properties = "spring.flyway.enabled=false")
+@ActiveProfiles("test")
 class LaboratoryApiApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+    @org.junit.jupiter.api.Test
+    void contextLoads() {}
 
 }

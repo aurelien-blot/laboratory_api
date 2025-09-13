@@ -2,11 +2,13 @@ package com.castruche.laboratory_api.myworld_api.entity;
 
 import com.castruche.laboratory_api.main_api.entity.AbstractEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
 
 @Entity
+@Table(name = "\"user\"") // guillemets doubles échappés pour H2/SQL standard
 public class User extends AbstractEntity {
 
     private String username;

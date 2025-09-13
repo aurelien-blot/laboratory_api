@@ -75,6 +75,5 @@ public abstract class GenericService<ENTITY extends AbstractEntity, DTO extends 
     }
 
     public void postCommonAction(DTO dto, ENTITY entity){
-        return;
     }
 }
