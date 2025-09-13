@@ -11,6 +11,15 @@ public class UserDto extends AbstractDto {
 
     private boolean mailVerified;
 
+    public UserDto() {
+        super();
+    }
+
+    public UserDto(Long id, String username) {
+        super.setId(id);
+        this.username = username;
+    }
+
     public String getUsername() {
         return username;
     }

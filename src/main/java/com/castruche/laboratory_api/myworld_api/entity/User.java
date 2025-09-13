@@ -26,6 +26,17 @@ public class User extends AbstractEntity {
     private int tentatives;
 
     private LocalDateTime lastVerificationMailDate;
+
+
+    public User() {
+        super();
+    }
+
+    public User(Long id, String username){
+        super.setId(id);
+        this.username = username;
+    }
+
     public String getUsername() {
         return username;
     }

@@ -5,6 +5,14 @@ import com.castruche.laboratory_api.main_api.dto.AbstractDto;
 public class UserLightDto extends AbstractDto {
     private String username;
 
+    public UserLightDto() {
+        super();
+    }
+
+    public UserLightDto(Long id, String username) {
+        super.setId(id);
+    }
+
     public String getUsername() {
         return username;
     }

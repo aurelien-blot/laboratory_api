@@ -16,10 +16,6 @@ public class SettingService {
         this.settingRepository = settingRepository;
     }
 
-    public Setting getSettingByShortName(String shortName) {
-        return settingRepository.findByShortName(shortName);
-    }
-
     public String getSettingValueByShortName(String shortName) {
         Setting setting = settingRepository.findByShortName(shortName);
         if(setting != null) {

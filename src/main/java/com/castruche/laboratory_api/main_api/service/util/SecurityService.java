@@ -35,7 +35,7 @@ public class SecurityService {
     }
 
     public String encodePassword(String password){
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(password);
     }
 
