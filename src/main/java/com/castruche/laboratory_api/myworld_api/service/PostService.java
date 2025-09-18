@@ -58,6 +58,7 @@ public class PostService extends GenericService<Post, PostDto, PostDto> {
                 String filenameWithoutExtension = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
                 String newFileName = filenameWithoutExtension+filenameSuffix+extension;
                 File originalFile = fileService.savePostPictureOriginalFile(file, newFileName, entity.getCreationBy().getId(), entity.getId());
+                fileService.savePostPictureMiniatureFile(originalFile,newFileName,  entity.getCreationBy().getId(), entity.getId());
                 fileService.savePostPictureResizedFile(originalFile,newFileName,  entity.getCreationBy().getId(), entity.getId());
             }
 

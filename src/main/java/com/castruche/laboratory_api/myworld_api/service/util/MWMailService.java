@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class MWMailService {
 
+    //TODO FAIRE TESTS QUAND UTILISé
+
     private static final Logger logger = LogManager.getLogger(MWMailService.class);
     private final String VAR_APP_LINK = "app_link";
     private static final String VAR_USERNAME = "username";

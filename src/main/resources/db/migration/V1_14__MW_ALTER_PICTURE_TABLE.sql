@@ -1,0 +1,1 @@
+ALTER TABLE picture ADD miniature_file_filepath VARCHAR(255) NOT NULL;

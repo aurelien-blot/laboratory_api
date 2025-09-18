@@ -62,6 +62,11 @@ public abstract class GenericService<ENTITY extends AbstractEntity, DTO extends 
     }
 
     @Transactional
+    public List<ENTITY> createAll(List<ENTITY> entities) {
+        return repository.saveAll(entities);
+    }
+
+    @Transactional
     public DTO update(DTO dto) {
         ENTITY entity = this.selectById(dto.getId());
         entity = formatter.updateEntityFromDto(entity, dto);

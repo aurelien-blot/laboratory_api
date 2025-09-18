@@ -14,22 +14,9 @@ import java.util.List;
 public class MWSettingService extends SettingService{
 
     private static final Logger logger = LogManager.getLogger(MWSettingService.class);
-    private SettingRepository settingRepository;
 
     public MWSettingService(SettingRepository settingRepository) {
         super(settingRepository);
-    }
-
-    public Setting getSettingByShortName(String shortName) {
-        return settingRepository.findByShortName(shortName);
-    }
-
-    public String getSettingValueByShortName(String shortName) {
-        Setting setting = settingRepository.findByShortName(shortName);
-        if(setting != null) {
-            return setting.getValue();
-        }
-        return null;
     }
 
 

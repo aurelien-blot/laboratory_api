@@ -38,7 +38,7 @@ public class SecurityServiceTest {
 
     @Test
     void checkPassword_shouldReturnDtoFalse_whenPasswordIsInCorrect() {
-        User entity = new User(1L, "Ginette");
+        User entity = new User(1L, "Test");
         entity.setPassword(service.encodePassword("password"));
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         BooleanResponseDto response = service.checkPassword("incorrectPassword", entity);
@@ -51,7 +51,7 @@ public class SecurityServiceTest {
 
     @Test
     void checkPassword_shouldReturnDtoTrue_whenPasswordIsCorrect() {
-        User entity = new User(2L, "Ginette");
+        User entity = new User(2L, "Test");
         entity.setTentatives(2);
         entity.setPassword(service.encodePassword("password"));
         when(repository.findById(2L)).thenReturn(Optional.of(entity));

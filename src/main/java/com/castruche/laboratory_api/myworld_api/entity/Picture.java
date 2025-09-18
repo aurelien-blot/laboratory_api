@@ -13,6 +13,9 @@ public class Picture extends AbstractEntity {
     Double originalSize;
     String resizedFileFilepath;
     String originalFilepath;
+
+    String miniatureFileFilepath;
+
     @ManyToOne(fetch = FetchType.LAZY)
     Post post;
 
@@ -62,5 +65,13 @@ public class Picture extends AbstractEntity {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public String getMiniatureFileFilepath() {
+        return miniatureFileFilepath;
+    }
+
+    public void setMiniatureFileFilepath(String miniatureFileFilepath) {
+        this.miniatureFileFilepath = miniatureFileFilepath;
     }
 }

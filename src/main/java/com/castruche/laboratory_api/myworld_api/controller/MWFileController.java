@@ -1,5 +1,6 @@
 package com.castruche.laboratory_api.myworld_api.controller;
 
+import com.castruche.laboratory_api.myworld_api.service.PictureService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.CacheControl;
@@ -15,27 +16,31 @@ import java.nio.file.Path;
 public class MWFileController {
 
 
-    @GetMapping()
-    public ResponseEntity<Resource> getPicture(@RequestParam String filePath) {
-        // TODO: check if the file is accessible by the user
-        if(null == filePath) return ResponseEntity.notFound().build();
+    private final PictureService pictureService;
 
-        Path p = Path.of(filePath);
-        if (!Files.exists(p)) return ResponseEntity.notFound().build();
-
-        try{
-            Resource res = new UrlResource(p.toUri());
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .cacheControl(CacheControl.noCache()) // ou max-age court si tu veux
-                    .body(res);
-        }
-        catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-
+    public MWFileController(PictureService pictureService) {
+        this.pictureService = pictureService;
     }
 
+    @GetMapping("/miniature/{pictureId}")
+    public ResponseEntity<Resource> downloadMiniaturePicture(@PathVariable Long pictureId) {
+        return pictureService.downloadMiniaturePicture(pictureId);
+    }
+
+    @GetMapping("/resized/{pictureId}")
+    public ResponseEntity<Resource> downloadResizedPicture(@PathVariable Long pictureId) {
+        return pictureService.downloadResizedPicture(pictureId);
+    }
+
+    @GetMapping("/original/{pictureId}")
+    public ResponseEntity<Resource> downloadOriginal(@PathVariable Long pictureId) {
+        return pictureService.downloadOriginalPicture(pictureId);
+    }
+
+    @GetMapping("/check-picture-status")
+    public ResponseEntity<Boolean> checkPictureStatus() {
+        return pictureService.checkPictureStatus();
+    }
 
 
 }

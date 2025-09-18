@@ -19,7 +19,7 @@ public class MWSecurityService extends SecurityService {
     private static final Logger logger = LogManager.getLogger(SecurityService.class);
     private final MWSettingService settingService;
     private final MWMailService mailService;
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private final UserFormatter userFormatter;
 
@@ -33,6 +33,7 @@ public class MWSecurityService extends SecurityService {
         this.settingService = settingService;
         this.mailService = mailService;
         this.userFormatter = userFormatter;
+        this.userRepository = userRepository;
         this.jwtTokenUtil = jwtTokenUtil;
     }
 

@@ -47,7 +47,7 @@ public class GenericServiceTest {
     void selectById_shouldReturnEntity_whenFound() {
         User entity = new User();
         entity.setId(1L);
-        entity.setUsername("Ginette");
+        entity.setUsername("Test");
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
 
         User result = service.selectById(1L);
@@ -81,10 +81,10 @@ public class GenericServiceTest {
     void selectDtoById_shouldMapEntityToDto_whenFound() {
         User entity = new User();
         entity.setId(2L);
-        entity.setUsername("Ginette");
+        entity.setUsername("Test");
         UserDto dto = new UserDto();
         dto.setId(2L);
-        dto.setUsername("Ginette");
+        dto.setUsername("Test");
 
         when(repository.findById(2L)).thenReturn(Optional.of(entity));
         when(formatter.entityToDto(entity)).thenReturn(dto);
@@ -186,6 +186,20 @@ public class GenericServiceTest {
         inOrder.verify(repository).save(toSave);
         inOrder.verify(service).postCommonAction(input, saved);
         inOrder.verify(formatter).entityToDto(saved);
+    }
+
+    @Test
+    public void createAll_ShouldSaveAllEntities() {
+        List<User> entities = List.of(new User(1L, "A"), new User(2L, "B"));
+
+        when(repository.saveAll(entities)).thenReturn(entities);
+
+        List<User> result = service.createAll(entities);
+
+        assertThat(result).isEqualTo(entities);
+        verify(repository).saveAll(entities);
+        verifyNoMoreInteractions(repository);
+        verifyNoInteractions(formatter);
     }
 
     @Test
