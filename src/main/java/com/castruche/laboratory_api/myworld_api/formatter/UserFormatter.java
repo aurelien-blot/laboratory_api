@@ -2,6 +2,7 @@ package com.castruche.laboratory_api.myworld_api.formatter;
 
 import com.castruche.laboratory_api.main_api.dto.util.ConnectedUserDto;
 import com.castruche.laboratory_api.main_api.formatter.IFormatter;
+import com.castruche.laboratory_api.myworld_api.dto.user.UserContactDto;
 import com.castruche.laboratory_api.myworld_api.dto.user.UserDto;
 import com.castruche.laboratory_api.myworld_api.dto.user.UserLightDto;
 import com.castruche.laboratory_api.myworld_api.entity.User;

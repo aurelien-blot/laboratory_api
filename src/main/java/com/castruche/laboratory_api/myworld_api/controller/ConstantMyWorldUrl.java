@@ -9,4 +9,5 @@ public class ConstantMyWorldUrl {
     public static final String LOGIN = ROOT+"/login";
     public static final String POST = ROOT+"/post";
     public static final String FILE = ROOT+"/file";
+    public static final String CONTACT = ROOT+"/contact";
 }
